@@ -16,54 +16,41 @@ import VersionDisplayer from '@/components/VersionDisplayer/VersionDisplayer.vue
 export default {
   name: 'home',
   components: { VersionDisplayer },
+  created() {
+    this.$http.get('/octo-spy/api/deployment/last').then(this.createLastDeployments);
+  },
+  methods: {
+    createLastDeployments(response) {
+      const versions = {};
+      response.data.forEach((deployment) => {
+        if (!versions[deployment.project]) {
+          versions[deployment.project] = {};
+        }
+        if (!versions[deployment.project][deployment.environment]) {
+          versions[deployment.project][deployment.environment] = [];
+        }
+        versions[deployment.project][deployment.environment].push({
+          name: deployment.client,
+          version: deployment.version,
+        });
+      });
+
+      // Convert all array with one client to single client
+      Object.keys(versions).forEach((project) => {
+        Object.keys(versions[project])
+          .filter(platform => versions[project][platform].length === 1)
+          .forEach((platform) => {
+            versions[project][platform] = versions[project][platform][0].version;
+          });
+      });
+      this.versions = versions;
+    },
+  },
   data() {
     return {
-      platforms: ['Dev', 'QA', 'Integ', 'Pre-production', 'Production'],
+      platforms: ['Development', 'QA', 'Integration', 'Pre-production', 'Production'],
       projects: ['Harmony', 'Karajan', 'OSM'],
-      versions: {
-        Harmony: {
-          Dev: 'master',
-          QA: '/',
-          Integ: [{
-            name: 'TF1',
-            version: '5.12.0',
-          }, {
-            name: 'Canal SNL',
-            version: '6.2.0',
-          }, {
-            name: 'COSOTT',
-            version: '5.0.0',
-          }, {
-            name: 'OCS',
-            version: '6.0.0',
-          }],
-          'Pre-production': [{
-            name: 'TF1',
-            version: '5.12.0',
-          }],
-          Production: [{
-            name: 'TF1',
-            version: '5.12.0',
-          }, {
-            name: 'Canal SNL',
-            version: '6.2.0',
-          }],
-        },
-        Karajan: {
-          Dev: 'master',
-          QA: '10.0.0',
-          Integ: '10.0.0',
-          'Pre-production': '10.0.0',
-          Production: '10.0.0',
-        },
-        OSM: {
-          Dev: '3.3.2',
-          QA: '3.3.2',
-          Integ: '/',
-          'Pre-production': '3.3.2',
-          Production: '3.3.2',
-        },
-      },
+      versions: null,
     };
   },
 };
@@ -86,13 +73,13 @@ export default {
     }
     .Harmony .version {
       $harmony: #AF7AC5;
-      &.Dev{
+      &.Development{
         background-color: $harmony;
       }
       &.QA {
         background-color: darken($harmony, 5%);
       }
-      &.Integ {
+      &.Integration {
         background-color: darken($harmony, 10%);
       }
       &.Pre-production {
@@ -104,13 +91,13 @@ export default {
     }
     .Karajan .version {
       $karajan: #F39C12;
-      &.Dev{
+      &.Development{
         background-color: $karajan;
       }
       &.QA {
         background-color: darken($karajan, 5%);
       }
-      &.Integ {
+      &.Integration {
         background-color: darken($karajan, 10%);
       }
       &.Pre-production {
@@ -122,13 +109,13 @@ export default {
     }
     .OSM .version {
       $osm: #16a085;
-      &.Dev{
+      &.Development{
         background-color: $osm;
       }
       &.QA {
         background-color: darken($osm, 5%);
       }
-      &.Integ {
+      &.Integration {
         background-color: darken($osm, 10%);
       }
       &.Pre-production {
