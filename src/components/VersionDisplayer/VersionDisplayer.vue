@@ -29,7 +29,7 @@
                 <div class="sub-version-container">
                   <div class="sub-version"
                        v-bind:key="`${project}_${index}_${platform}`"
-                       v-for="(client, index) in getVersion(project, platform)">
+                       v-for="(client, index) in getVersion(versions, project, platform)">
                     <div class="sub-version-header">{{client.name}}</div>
                     <div class="sub-version-body">{{client.version}}</div>
                   </div>
