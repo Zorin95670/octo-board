@@ -1,0 +1,3 @@
+registry=https://npm-proxy.c4m.qa.arkena.com/
+//npm-proxy.c4m.qa.arkena.com/:_authToken=${NPM_TOKEN}
+
