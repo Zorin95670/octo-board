@@ -46,5 +46,19 @@ This command will generate a `docs` directory. It contains all documentation, sh
 
 To write documentation see [Documentation Reference](https://esdoc.org/manual/tags.html)
 
+### Docker
+
+Build image:
+
+```
+docker build --build-arg NPM_TOKEN=${NPM_TOKEN} -t octo-board
+```
+NPM_TOKEN refer to internal registry.
+
+Use image:
+```
+docker run -p 80:80 --rm -ti octo-board
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
