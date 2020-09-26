@@ -3,7 +3,7 @@
     Welcome on Octo-Board!
     <div class="version-manager">
       <version-displayer
-        :platforms="platforms"
+        :platforms="environments"
         :projects="projects"
         :versions="versions"/>
     </div>
@@ -17,7 +17,16 @@ export default {
   name: 'home',
   components: { VersionDisplayer },
   created() {
-    this.$http.get('/octo-spy/api/deployment/last').then(this.createLastDeployments);
+    this.$http.all([
+      this.$http.get('/octo-spy/api/environment'),
+      this.$http.get('/octo-spy/api/deployment/last'),
+    ]).then((values) => {
+      values[0].data.forEach((env) => {
+        this.environments.push(env.name);
+      });
+      this.projects = [...new Set(values[1].data.map(deployment => deployment.project))];
+      this.createLastDeployments(values[1]);
+    });
   },
   methods: {
     createLastDeployments(response) {
@@ -48,8 +57,8 @@ export default {
   },
   data() {
     return {
-      platforms: ['Development', 'QA', 'Integration', 'Pre-production', 'Production'],
-      projects: ['Harmony', 'Karajan', 'OSM'],
+      environments: [],
+      projects: [],
       versions: null,
     };
   },

@@ -1,8 +1,9 @@
 # octo-board changelog
 
-## XXXX/XX/XX: version 0.1.0-SNAPSHOT
+## XXXX/XX/XX: version 1.0.2-SNAPSHOT
 
 ### New features
 
 * [HARMONY-2810] Add version displayer component
+* [HARMONY-3555] Make environments and projects dynamic
 
