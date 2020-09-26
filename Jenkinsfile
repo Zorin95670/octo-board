@@ -44,29 +44,7 @@ if (env.JOB_NAME.startsWith("releasemb-")) {
                     step([$class: "CoberturaPublisher", autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: "**/*coverage.xml", failNoReports: false, failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: "ASCII", zoomCoverageChart: false])
                 }
                 jenkinsHelper.waitSonarQG()
-
-                PKG_VERSION = sh(returnStdout: true, script: "echo -n \$(dpkg-parsechangelog -S Version)")
-                // Decision about snapshot packaging
-                if (env.BRANCH_NAME != "master") {
-                    println("Skipping snapshot packaging, as it is only enabled on the master branch.")
-                } else if (currentBuild.result != "SUCCESS") {
-                    println("As the build FAILED, snapshot packaging will NOT be attempted.")
-                } else if (!PKG_VERSION.contains("~dev")) {
-                    println("As it is NOT a development version, snapshot packaging will NOT be attempted.")
-                } else {
-                    SHOULD_PACKAGE = true
-                    stage ("Stash everything") {
-                        stash(name: "workspace", useDefaultExcludes: false)
-                    }
-                }
             }
-        }
-    }
-    // Snapshot packaging
-    if (SHOULD_PACKAGE) {
-        stretch_dsc_file = jenkinsHelper.generateDebianSourcePackage("snapshot", "stretch")
-        stage('Build and publish for stretch') {
-            jenkinsHelper.buildAndPublishDebianPackage(stretch_dsc_file, "stretch", ["qa-cw"])
         }
     }
 
@@ -109,14 +87,4 @@ if (env.JOB_NAME.startsWith("releasemb-")) {
             }
         }
     }
-    if (currentBuild.result == "SUCCESS") {
-        stretch_dsc_file = jenkinsHelper.generateDebianSourcePackage("build_dsc", "stretch")
-        stage('Build and publish for stretch') {
-            jenkinsHelper.buildAndPublishDebianPackage(stretch_dsc_file, "stretch", ["qa-cw", "cw"])
-        }
-    } else {
-        error("Build failed, skipping packaging.")
-    }
-} else if (currentBuild.projectName.startsWith("mut-")) {
-// TODO
 }
