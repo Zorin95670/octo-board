@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'v-toaster/dist/v-toaster.css';
 import App from './App.vue';
 import router from './router';
+import { version } from '../package.json';
 
 Vue.use(VueAxios, axios);
 Vue.use(Toaster, { timeout: 5000 });
@@ -26,5 +27,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  data: { version },
   render: h => h(App),
 }).$mount('#app');
