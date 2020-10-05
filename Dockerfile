@@ -8,6 +8,7 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN rm -f .npmrc
+RUN npm run changelog --silent > public/changelog.html
 RUN npm run build
 
 # Production stage

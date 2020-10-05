@@ -5,6 +5,7 @@
     </div>
     <div class="footer">
       Version of API: {{ version.api }}, version of GUI: {{ version.gui }}.
+      You can see changelog <a href="changelog.html">here</a>.
     </div>
   </div>
 </template>
