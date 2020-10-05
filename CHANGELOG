@@ -1,5 +1,12 @@
 # octo-board changelog
 
+## 2020/10/05: version 1.1.0
+
+### New features
+
+* [HARMONY-3581] Display version on home page
+* [HARMONY-3583] Display link to changelog in footer
+
 ## 2020/09/28: version 1.0.2
 
 ### New features

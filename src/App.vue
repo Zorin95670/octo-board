@@ -3,12 +3,29 @@
     <div class="app-content">
       <router-view/>
     </div>
+    <div class="footer">
+      Version of API: {{ version.api }}, version of GUI: {{ version.gui }}.
+      You can see changelog <a href="changelog.html">here</a>.
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
+  mounted() {
+    this.$http.get('/octo-spy/api/info').then((response) => {
+      this.version.api = response.data.version;
+    });
+  },
+  data() {
+    return {
+      version: {
+        gui: this.$root.version,
+        api: '-',
+      },
+    };
+  },
 };
 </script>
 

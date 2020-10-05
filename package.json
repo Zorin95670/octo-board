@@ -1,6 +1,6 @@
 {
   "name": "octo-board",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +10,8 @@
     "lint:report": "eslint -c .eslintrc.js -f checkstyle src -o target/checkstyle-result.xml",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
-    "doc": "esdoc"
+    "doc": "esdoc",
+    "changelog": "markdown CHANGELOG"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -40,9 +41,10 @@
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^6.5.1",
-    "eslint-plugin-vue": "^5.2.3",
     "eslint-plugin-cypress": "^2.0.1",
+    "eslint-plugin-vue": "^5.2.3",
     "jest-junit": "^8.0.0",
+    "markdown-to-html": "0.0.13",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
     "vue-jest": "^3.0.5",
