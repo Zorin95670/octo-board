@@ -142,7 +142,7 @@ export default {
       }
     }
     .Karajan.version {
-      $karajan: #FFEF99;
+      $karajan: #3BDA00;
       &.Development{
         background-color: $karajan;
       }
@@ -157,7 +157,7 @@ export default {
       }
     }
     .Workflow.version {
-      $workflow: #CFF292;
+      $workflow: #FFAA00;
       &.Development{
         background-color: $workflow;
       }
