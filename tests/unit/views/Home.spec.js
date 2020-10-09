@@ -37,7 +37,12 @@ describe('Home.vue', () => {
 
   it('Simple test', async () => {
     expect(wrapper).toBeTruthy();
-    expect(wrapper.vm.versions).toEqual({ Harmony: { env1: '1.0.0', env2: '2.0.0' } });
+    expect(wrapper.vm.versions).toEqual({
+      Harmony: {
+        env1: [{ name: 'TF1', version: '1.0.0' }],
+        env2: [{ name: 'TF1', version: '2.0.0' }],
+      }
+    });
     expect(wrapper.vm.environments).toEqual(['env1', 'env2']);
     expect(wrapper.vm.projects).toEqual(['Harmony']);
   });
@@ -76,7 +81,7 @@ describe('Home.vue', () => {
         }],
       },
       Karajan: {
-        Dev: '1.0.0',
+        Dev: [{ name: 'b', version: '1.0.0' }],
       },
     });
   });

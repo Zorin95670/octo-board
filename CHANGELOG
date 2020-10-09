@@ -1,5 +1,12 @@
 # octo-board changelog
 
+## 2020/10/09: version 1.2.2
+
+### Bug fixes:
+
+* Make client of version always visible
+* Fix order of clients
+
 ## 2020/10/08: version 1.2.1
 
 ### Bug fixes:
