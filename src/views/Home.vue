@@ -5,6 +5,7 @@
       <version-displayer
         :platforms="environments"
         :projects="projects"
+        :clients="clients"
         :versions="versions"/>
     </div>
   </div>
@@ -31,6 +32,7 @@ export default {
   methods: {
     createLastDeployments(response) {
       const versions = {};
+      const clients = [];
       response.data.forEach((deployment) => {
         if (!versions[deployment.project]) {
           versions[deployment.project] = {};
@@ -42,16 +44,11 @@ export default {
           name: deployment.client,
           version: deployment.version,
         });
+        if (!clients.includes(deployment.client)) {
+          clients.push(deployment.client);
+        }
       });
-
-      // Convert all array with one client to single client
-      Object.keys(versions).forEach((project) => {
-        Object.keys(versions[project])
-          .filter(platform => versions[project][platform].length === 1)
-          .forEach((platform) => {
-            versions[project][platform] = versions[project][platform][0].version;
-          });
-      });
+      this.clients = clients.sort();
       this.versions = versions;
     },
   },
@@ -59,6 +56,7 @@ export default {
     return {
       environments: [],
       projects: [],
+      clients: [],
       versions: null,
     };
   },

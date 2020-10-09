@@ -11,6 +11,7 @@ describe('Home.vue', () => {
       propsData: {
         platforms: ['env1', 'env2', 'env3'],
         projects: ['pro1', 'pro2'],
+        clients: ['cli1', 'cli2', 'cli3'],
         versions: {
           pro1: {
             env1: '1',

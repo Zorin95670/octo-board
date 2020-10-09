@@ -39,6 +39,7 @@ export default {
   props: {
     platforms: Array,
     projects: Array,
+    clients: Array,
     versions: Object,
   },
   methods: {
@@ -56,16 +57,24 @@ export default {
     getVersionList(project) {
       const list = [];
       this.platforms.forEach((platform) => {
+        let size = this.getNumberOfClientByPlatform(platform);
         if (Array.isArray(this.versions[project][platform])) {
-          this.versions[project][platform].forEach((item) => {
-            list.push({
-              client: item.name,
-              project,
-              platform,
-              version: item.version,
-              id: `${project}_${platform}_${item.name}_${item.version}`,
-              size: 1,
-            });
+          if (this.versions[project][platform].length !== 1) {
+            size = 1;
+          }
+          this.clients.forEach((client) => {
+            this.versions[project][platform]
+              .filter(item => client === item.name)
+              .forEach((item) => {
+                list.push({
+                  client: item.name,
+                  project,
+                  platform,
+                  version: item.version,
+                  id: `${project}_${platform}_${item.name}_${item.version}`,
+                  size,
+                });
+              });
           });
         } else {
           list.push({
@@ -74,7 +83,7 @@ export default {
             platform,
             version: this.versions[project][platform],
             id: `${project}_${platform}_${this.versions[project][platform]}`,
-            size: this.getNumberOfClientByPlatform(platform),
+            size,
           });
         }
       });
