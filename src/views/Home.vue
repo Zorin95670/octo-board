@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import VersionDisplayer from '@/components/VersionDisplayer/VersionDisplayer.vue';
 
 export default {
@@ -43,6 +44,7 @@ export default {
         versions[deployment.project][deployment.environment].push({
           name: deployment.client,
           version: deployment.version,
+          class: this.getClass(deployment.insertDate),
         });
         if (!clients.includes(deployment.client)) {
           clients.push(deployment.client);
@@ -50,6 +52,28 @@ export default {
       });
       this.clients = clients.sort();
       this.versions = versions;
+    },
+    getClass(text) {
+      if (!text) {
+        return '';
+      }
+      const date = moment.utc(text);
+      const now = moment();
+      if (this.isHotNew(date, now)) {
+        return 'hot-new';
+      }
+      if (this.isNew(date, now)) {
+        return 'new';
+      }
+      return '';
+    },
+    isHotNew(date, now) {
+      return this.isNew(date, now) && (now.unix() - date.unix()) <= 3600;
+    },
+    isNew(date, now) {
+      return date.year() === now.year()
+        && date.month() === now.month()
+        && (now.unix() - date.unix()) <= 86400;
     },
   },
   data() {

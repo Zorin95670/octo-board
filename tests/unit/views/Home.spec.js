@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
+import moment from 'moment';
 import MockAdapter from 'axios-mock-adapter';
 import Home from '@/views/Home.vue';
 
@@ -39,9 +40,9 @@ describe('Home.vue', () => {
     expect(wrapper).toBeTruthy();
     expect(wrapper.vm.versions).toEqual({
       Harmony: {
-        env1: [{ name: 'TF1', version: '1.0.0' }],
-        env2: [{ name: 'TF1', version: '2.0.0' }],
-      }
+        env1: [{ name: 'TF1', version: '1.0.0', class: '' }],
+        env2: [{ name: 'TF1', version: '2.0.0', class: '' }],
+      },
     });
     expect(wrapper.vm.environments).toEqual(['env1', 'env2']);
     expect(wrapper.vm.projects).toEqual(['Harmony']);
@@ -75,14 +76,25 @@ describe('Home.vue', () => {
         Production: [{
           name: 'a',
           version: '1.0.0',
+          class: '',
         }, {
           name: 'b',
           version: '1.0.0',
+          class: '',
         }],
       },
       Karajan: {
-        Dev: [{ name: 'b', version: '1.0.0' }],
+        Dev: [{ name: 'b', version: '1.0.0', class: '' }],
       },
     });
+  });
+  it('Test hot and new', () => {
+    expect(wrapper.vm.getClass(null)).toEqual('');
+    let date = moment().utc().subtract(2, 'days');
+    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD hh:mm:ss'))).toEqual('');
+    date = moment().utc().subtract(2, 'hour');
+    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD hh:mm:ss'))).toEqual('new');
+    date = moment().utc();
+    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD hh:mm:ss'))).toEqual('hot-new');
   });
 });
