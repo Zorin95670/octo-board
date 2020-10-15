@@ -22,9 +22,9 @@
           :colspan="item.size"
           v-bind:key="item.id"
           v-for="item in getVersionList(project)">
-          <div class="version-container">
-            <div class="client-name">{{item.client}}</div>
-            <div class="version-name">{{item.version}}</div>
+          <div v-bind:class="getClass('version-container', item.class)">
+            <div class="client-name">{{ item.client }}</div>
+            <div class="version-name">{{ item.version }}</div>
           </div>
         </td>
       </tr>
@@ -73,6 +73,7 @@ export default {
                   version: item.version,
                   id: `${project}_${platform}_${item.name}_${item.version}`,
                   size,
+                  class: item.class || '',
                 });
               });
           });
@@ -84,6 +85,7 @@ export default {
             version: this.versions[project][platform],
             id: `${project}_${platform}_${this.versions[project][platform]}`,
             size,
+            class: '',
           });
         }
       });
@@ -91,7 +93,9 @@ export default {
     },
     getClass(...names) {
       const classObject = {};
-      names.forEach((name) => { classObject[name] = true; });
+      names.filter(name => !!name).forEach((name) => {
+        classObject[name] = true;
+      });
       return classObject;
     },
   },
@@ -102,16 +106,38 @@ export default {
   .version-displayer {
     table {
       border-spacing: 0;
+
       td, th {
         text-align: center;
       }
     }
+
+    .hot-new:after, .new:after {
+      font-size: small;
+      font-weight: bold;
+      position: relative;
+      top: -67px;
+      left: -40px;
+      background-color: red;
+      width: 5rem;
+      height: 1.5rem;
+      transform: rotate(-45deg);
+      clip-path:polygon(30% 0, 70% 0%, 100% 100%, 0% 100%);
+    }
+    .hot-new:after {
+      content: 'Hot';
+    }
+    .new:after {
+      content: 'New';
+    }
+
     .title {
       font-weight: bold;
       color: #333333;
       font-size: x-large;
       padding: 1.5rem;
     }
+
     .version {
       font-size: large;
       color: white;

@@ -4,8 +4,12 @@
       <router-view/>
     </div>
     <div class="footer">
-      Version of API: {{ version.api }}, version of GUI: {{ version.gui }}.
-      You can see changelog <a href="changelog.html">here</a>.
+      <p>
+        <b>Hot</b> version is a version that has been deployed less than one hour ago.
+        <b>New</b> version is a version that has been deployed less than one day ago.
+      </p>
+      <p>Version of API: {{ version.api }}, version of GUI: {{ version.gui }}.
+        You can see changelog <a href="changelog.html">here</a>.</p>
     </div>
   </div>
 </template>

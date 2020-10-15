@@ -42,6 +42,7 @@ describe('Home.vue', () => {
 
   it('Test getVersionList', () => {
     expect(wrapper.vm.getVersionList('pro1')).toEqual([{
+      class: '',
       client: null,
       id: 'pro1_env1_1',
       platform: 'env1',
@@ -49,6 +50,7 @@ describe('Home.vue', () => {
       size: 1,
       version: '1',
     }, {
+      class: '',
       client: null,
       id: 'pro1_env2_2',
       platform: 'env2',
@@ -56,6 +58,7 @@ describe('Home.vue', () => {
       size: 3,
       version: '2',
     }, {
+      class: '',
       client: null,
       id: 'pro1_env3_3',
       platform: 'env3',
@@ -64,6 +67,7 @@ describe('Home.vue', () => {
       version: '3',
     }]);
     expect(wrapper.vm.getVersionList('pro2')).toEqual([{
+      class: '',
       client: null,
       id: 'pro2_env1_1',
       platform: 'env1',
@@ -71,6 +75,7 @@ describe('Home.vue', () => {
       size: 1,
       version: '1',
     }, {
+      class: '',
       client: 'cli1',
       id: 'pro2_env2_cli1_2',
       platform: 'env2',
@@ -78,6 +83,7 @@ describe('Home.vue', () => {
       size: 1,
       version: '2',
     }, {
+      class: '',
       client: 'cli2',
       id: 'pro2_env2_cli2_2',
       platform: 'env2',
@@ -85,6 +91,7 @@ describe('Home.vue', () => {
       size: 1,
       version: '2',
     }, {
+      class: '',
       client: 'cli3',
       id: 'pro2_env2_cli3_3',
       platform: 'env2',
@@ -92,6 +99,7 @@ describe('Home.vue', () => {
       size: 1,
       version: '3',
     }, {
+      class: '',
       client: 'cli1',
       id: 'pro2_env3_cli1_3',
       platform: 'env3',
