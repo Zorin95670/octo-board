@@ -115,9 +115,9 @@ export default {
     .hot-new:after, .new:after {
       font-size: small;
       font-weight: bold;
-      position: relative;
-      top: -67px;
-      left: -40px;
+      position: absolute;
+      margin-top: -81px;
+      margin-left: -40px;
       background-color: red;
       width: 5rem;
       height: 1.5rem;
