@@ -124,8 +124,8 @@ export default {
       font-size: small;
       font-weight: bold;
       position: absolute;
-      margin-top: -81px;
-      margin-left: -40px;
+      top: 6px;
+      left: -15px;
       background-color: red;
       width: 5rem;
       height: 1.5rem;
