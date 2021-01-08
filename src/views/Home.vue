@@ -45,6 +45,7 @@ export default {
           name: deployment.client,
           version: deployment.version,
           class: this.getClass(deployment.insertDate),
+          inProgress: deployment.inProgress,
         });
         if (!clients.includes(deployment.client)) {
           clients.push(deployment.client);

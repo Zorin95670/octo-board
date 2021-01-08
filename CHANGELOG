@@ -1,6 +1,10 @@
 # octo-board changelog
 
-## 2020/10/15: version 1.3.1
+## 2021/01/08: version 1.4.0
+
+* [HARMONY-3550] Display deployment progress
+
+## 2021/01/07: version 1.3.1
 
 ### Bug fixes:
 

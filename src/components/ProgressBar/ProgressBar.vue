@@ -1,0 +1,61 @@
+<template>
+  <div class="progress-bar animate">
+    <span>{{ text }}</span>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ProgressBar',
+  props: {
+    text: String,
+  },
+};
+</script>
+
+<style scoped>
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+.progress-bar {
+  height: 20px;
+  position: relative;
+}
+
+.progress-bar > span {
+  display: block;
+  height: 100%;
+  background-color: #FFBF00;
+  box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3),
+  inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar > span:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent
+  );
+  z-index: 1;
+  background-size: 50px 50px;
+  animation: move 2s linear infinite;
+  overflow: hidden;
+}
+.progress-bar > span:after, .animate > span > span {
+  animation: move 2s linear infinite;
+}
+</style>

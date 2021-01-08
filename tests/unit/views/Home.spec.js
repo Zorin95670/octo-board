@@ -91,10 +91,10 @@ describe('Home.vue', () => {
   it('Test hot and new', () => {
     expect(wrapper.vm.getClass(null)).toEqual('');
     let date = moment().utc().subtract(2, 'days');
-    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD hh:mm:ss'))).toEqual('');
+    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD HH:mm:ss'))).toEqual('');
     date = moment().utc().subtract(2, 'hour');
-    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD hh:mm:ss'))).toEqual('new');
+    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD HH:mm:ss'))).toEqual('new');
     date = moment().utc();
-    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD hh:mm:ss'))).toEqual('hot-new');
+    expect(wrapper.vm.getClass(date.format('YYYY-MM-DD HH:mm:ss'))).toEqual('hot-new');
   });
 });
