@@ -3,9 +3,13 @@ FROM node:lts-alpine as build-stage
 
 ARG NPM_TOKEN
 WORKDIR /app
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++
 COPY npmrc .npmrc
 COPY package*.json ./
-RUN npm install
+RUN npm install --add-python-to-path='true'
 COPY . .
 RUN rm -f .npmrc
 RUN npm run changelog --silent > public/changelog.html
