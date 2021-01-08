@@ -26,6 +26,10 @@
             <div class="client-name">{{ item.client }}</div>
             <div class="version-name">{{ item.version }}</div>
           </div>
+          <progress-bar
+            class="progress-bar"
+            v-if="item.inProgress"
+            text="In progress"/>
         </td>
       </tr>
       </tbody>
@@ -34,8 +38,11 @@
 </template>
 
 <script>
+import ProgressBar from '@/components/ProgressBar/ProgressBar.vue';
+
 export default {
   name: 'VersionDisplayer',
+  components: { ProgressBar },
   props: {
     platforms: Array,
     projects: Array,
@@ -74,6 +81,7 @@ export default {
                   id: `${project}_${platform}_${item.name}_${item.version}`,
                   size,
                   class: item.class || '',
+                  inProgress: item.inProgress,
                 });
               });
           });
@@ -141,6 +149,7 @@ export default {
     .version {
       font-size: large;
       color: white;
+      position: relative;
 
       .version-container {
         padding: 2rem;
@@ -159,6 +168,11 @@ export default {
           flex-basis: 50%;
           margin-bottom: auto;
         }
+      }
+      .progress-bar {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
       }
     }
     .Harmony.version {
