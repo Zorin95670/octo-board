@@ -16,7 +16,18 @@
       <tr
         v-bind:key="project"
         v-for="project in projects">
-        <td class="title">{{ project }}</td>
+        <td class="title">
+          <router-link
+            :to="`/project/${project}`"
+            v-slot="{ href, route, navigate, isActive, isExactActive }">
+            <a
+              class="link-effect"
+              :active="isActive"
+              :href="href"
+              :title="`Go to history of ${project}'s deployments.`"
+              @click="navigate">{{ project }}</a>
+          </router-link>
+        </td>
         <td
           v-bind:class="getClass(item.project, 'version', item.platform)"
           :colspan="item.size"
