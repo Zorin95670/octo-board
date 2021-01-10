@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import AwesomeTable from 'AwesomeTable';
 import axios from 'axios';
 import Toaster from 'v-toaster';
 import VueAxios from 'vue-axios';
@@ -7,6 +8,7 @@ import { faCircleNotch, faInfoCircle, faStar as fasStar } from '@fortawesome/fre
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'v-toaster/dist/v-toaster.css';
+import 'AwesomeTable/dist/awesome-table.css';
 import App from './App.vue';
 import router from './router';
 import { version } from '../package.json';
@@ -15,6 +17,7 @@ Vue.use(VueAxios, axios);
 Vue.use(Toaster, { timeout: 5000 });
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('awesome-table', AwesomeTable);
 
 library.add(
   fasStar,
