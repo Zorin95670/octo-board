@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <vue-snotify></vue-snotify>
+    <h1>Welcome on Octo-Board!</h1>
     <div class="app-content">
       <router-view/>
     </div>
