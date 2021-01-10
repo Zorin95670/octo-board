@@ -1,5 +1,9 @@
 # octo-board changelog
 
+## 2021/01/10: version 1.5.0
+
+* [HARMONY-3551] Display history of project's deployments
+
 ## 2021/01/08: version 1.4.0
 
 * [HARMONY-3550] Display deployment progress

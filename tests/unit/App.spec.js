@@ -24,6 +24,8 @@ describe('App.vue', () => {
       router,
       stubs: {
         FontAwesomeIcon: true,
+        VueSnotify: true,
+        RouterView: true,
       },
     });
   });

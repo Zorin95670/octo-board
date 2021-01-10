@@ -8,6 +8,9 @@ describe('Home.vue', () => {
   beforeAll(() => {
     wrapper = shallowMount(VersionDisplayer, {
       localVue,
+      stubs: {
+        RouterLink: true,
+      },
       propsData: {
         platforms: ['env1', 'env2', 'env3'],
         projects: ['pro1', 'pro2'],

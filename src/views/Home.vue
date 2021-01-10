@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    Welcome on Octo-Board!
     <div class="version-manager">
       <version-displayer
         :platforms="environments"
