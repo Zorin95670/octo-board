@@ -3,7 +3,7 @@
     <table>
       <thead>
       <tr>
-        <th><!-- Project name column --></th>
+        <th class="fixed-column"><!-- Project name column --></th>
         <th
           class="title"
           v-bind:key="platform"
@@ -16,7 +16,7 @@
       <tr
         v-bind:key="project"
         v-for="project in projects">
-        <td class="title">
+        <td class="title fixed-column">
           <router-link
             :to="`/project/${project}`"
             v-slot="{ href, route, navigate, isActive, isExactActive }">
@@ -123,11 +123,29 @@ export default {
 
 <style lang="scss" scoped>
   .version-displayer {
+    overflow-x: auto;
+    width: 90%;
+
     table {
       border-spacing: 0;
+      margin-left: 15rem;
 
       td, th {
         text-align: center;
+
+        &.fixed-column {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          background-color: white;
+          position: absolute;
+          padding: 0 4.4rem 0 0;
+          width: 20rem;
+          left: 0;
+          height: 9.15rem;
+          top: auto;
+          z-index: 999;
+        }
       }
     }
 
@@ -166,6 +184,7 @@ export default {
         padding: 2rem;
         min-width: 10rem;
         min-height: 5rem;
+        max-height: 5rem;
         display: flex;
         flex-direction: column;
         align-items: stretch;
