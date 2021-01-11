@@ -124,11 +124,10 @@ export default {
 <style lang="scss" scoped>
   .version-displayer {
     overflow-x: auto;
-    width: 90%;
 
     table {
       border-spacing: 0;
-      margin-left: 15rem;
+      margin-left: 24.4rem;
 
       td, th {
         text-align: center;
@@ -139,8 +138,8 @@ export default {
           align-items: center;
           background-color: white;
           position: absolute;
-          padding: 0 4.4rem 0 0;
-          width: 20rem;
+          padding: 0 .4rem 0 0;
+          width: 24rem;
           left: 0;
           height: 9.15rem;
           top: auto;
