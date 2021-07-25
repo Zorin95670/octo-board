@@ -1,7 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import ProjectDeploymentsHistoric from '@/views/ProjectDeploymentsHistoric.vue';
+import Page404 from '@/views/Page404.vue';
+import VersionTable from '@/components/DeploymentTable.vue';
+import HistoricTable from '@/components/HistoricTable.vue';
+import MasterProjectCardList from '@/components/MasterProjectCardList.vue';
+import SubProjectsTable from '@/components/SubProjectsTable.vue';
 
 Vue.use(Router);
 
@@ -9,13 +12,28 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'Dashboard',
+      component: VersionTable,
     },
     {
-      path: '/project/:projectName',
-      name: 'Historic of project\'s deployments',
-      component: ProjectDeploymentsHistoric,
+      path: '/projects',
+      name: 'Master projects',
+      component: MasterProjectCardList,
+    },
+    {
+      path: '/projects/:projectName',
+      name: 'Master project: {{projectName}}',
+      component: SubProjectsTable,
+    },
+    {
+      path: '/historic',
+      name: 'Deployments historic',
+      component: HistoricTable,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'Page not found.',
+      component: Page404,
     },
   ],
 });
