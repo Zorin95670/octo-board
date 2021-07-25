@@ -14,6 +14,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  setupFiles: ['<rootDir>/tests/unit/index.js'],
   snapshotSerializers: [
     'jest-serializer-vue',
   ],
@@ -33,6 +34,7 @@ module.exports = {
   coverageReporters: [
     'lcov',
     'cobertura',
+    'text-summary',
   ],
   coverageDirectory: './target',
 };
