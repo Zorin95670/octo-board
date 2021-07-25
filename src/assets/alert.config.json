@@ -1,0 +1,8 @@
+{
+  "color": {
+    "critical": "red accent-4"
+  },
+  "icon": {
+    "security": "mdi-shield-lock"
+  }
+}

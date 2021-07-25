@@ -1,0 +1,23 @@
+[
+  {
+    "icon": "mdi-view-dashboard",
+    "text": "Dashboard",
+    "route": "/",
+    "permitAll": true,
+    "roles": null
+  },
+  {
+    "icon": "mdi-archive",
+    "text": "Master project",
+    "route": "/projects",
+    "permitAll": true,
+    "roles": null
+  },
+  {
+    "icon": "mdi-history",
+    "text": "Historic",
+    "route": "/historic",
+    "permitAll": true,
+    "roles": null
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "headers": [
+    {
+      "text": "Project",
+      "align": "start",
+      "sortable": true,
+      "value": "project"
+    },
+    {
+      "text": "Environment",
+      "align": "start",
+      "sortable": true,
+      "value": "environment"
+    },
+    {
+      "text": "Client",
+      "align": "start",
+      "sortable": true,
+      "value": "client"
+    },
+    {
+      "text": "Version",
+      "align": "start",
+      "sortable": true,
+      "value": "version"
+    },
+    {
+      "text": "Deployment date",
+      "align": "start",
+      "sortable": true,
+      "value": "insertDate"
+    },
+    {
+      "text": "Active version",
+      "align": "start",
+      "sortable": true,
+      "value": "alive"
+    }
+  ]
+}
