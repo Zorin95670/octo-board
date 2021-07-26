@@ -1,35 +1,29 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import VueRouter from 'vue-router';
-import App from '@/App.vue';
-import VueAxios from 'vue-axios';
-import axios from 'axios';
+import component from '@/components/commons/ApplicationFooter.vue';
+import Vuetify from 'vuetify';
 import MockAdapter from 'axios-mock-adapter';
-import Vuetify from 'vuetify'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();
-
 localVue.use(VueAxios, axios);
-localVue.use(VueRouter);
 
-describe('App.vue', () => {
+describe('ApplicationFooter', () => {
   let wrapper;
   let vuetify;
-  const router = new VueRouter();
-
-  mock.onGet('/octo-spy/api/info')
-    .reply(200, { version: 'test' });
 
   beforeAll(() => {
+    mock.onGet('/octo-spy/api/info')
+      .reply(200, { version: 'test' });
     vuetify = new Vuetify();
-    wrapper = shallowMount(App, {
+    wrapper = shallowMount(component, {
       localVue,
-      router,
       vuetify,
     });
   });
 
-  it('Simple test', async () => {
+  it('Test component instantiation', async () => {
     expect(wrapper).toBeTruthy();
     expect(wrapper.vm.version.api).toEqual('test');
   });
