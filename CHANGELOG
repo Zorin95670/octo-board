@@ -1,5 +1,11 @@
 # octo-board changelog
 
+## 2021/07/27: version 2.0.2
+
+### Bug fixes:
+
+* Add missing dependency for build
+
 ## 2021/07/27: version 2.0.1
 
 ### Bug fixes:
