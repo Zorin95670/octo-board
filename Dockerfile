@@ -1,7 +1,6 @@
 # Build stage
 FROM node:lts-alpine as build-stage
 
-ARG NPM_TOKEN
 WORKDIR /app
 RUN apk --no-cache --virtual build-dependencies add \
     python \
@@ -10,7 +9,6 @@ RUN apk --no-cache --virtual build-dependencies add \
 COPY package*.json ./
 RUN npm install --add-python-to-path='true'
 COPY . .
-RUN rm -f .npmrc
 RUN npm run changelog --silent > public/changelog.html
 RUN npm run build
 
