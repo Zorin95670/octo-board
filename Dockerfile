@@ -7,7 +7,6 @@ RUN apk --no-cache --virtual build-dependencies add \
     python \
     make \
     g++
-COPY npmrc .npmrc
 COPY package*.json ./
 RUN npm install --add-python-to-path='true'
 COPY . .

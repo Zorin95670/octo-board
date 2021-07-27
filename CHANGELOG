@@ -1,5 +1,11 @@
 # octo-board changelog
 
+## 2021/07/27: version 2.0.1
+
+### Bug fixes:
+
+* Fix dockerfile
+
 ## 2021/07/26: version 2.0.0
 
 ### New features
