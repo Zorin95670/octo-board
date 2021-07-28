@@ -75,6 +75,11 @@ import tableConfig from '@/assets/table.historic.config.json';
 export default {
   name: 'HistoricTable',
   created() {
+    Object.keys(this.$route.query)
+      .filter((key) => this.searchFields.includes(key))
+      .forEach((key) => {
+        this[key] = this.$route.query[key];
+      });
     this.$http.get('/octo-spy/api/project').then((response) => {
       this.projects = response.data.map((project) => project.name);
     });
