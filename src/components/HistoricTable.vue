@@ -59,7 +59,7 @@
               @input="paginationChanging"/>
           </template>
           <template v-slot:[`item.alive`]="{item}">
-            {{ item.value ? 'Yes' : 'No' }}
+            {{ item.alive ? 'Yes' : 'No' }}
           </template>
         </v-data-table>
       </v-col>
