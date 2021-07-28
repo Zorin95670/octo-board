@@ -24,8 +24,8 @@ module.exports = {
   testURL: 'http://localhost/',
   reporters: [
     'default',
-    'jest-junit',
   ],
+  testResultsProcessor: 'jest-sonar-reporter',
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,vue}',
@@ -36,5 +36,5 @@ module.exports = {
     'cobertura',
     'text-summary',
   ],
-  coverageDirectory: './target',
+  coverageDirectory: './reports',
 };

@@ -3,7 +3,7 @@
 /node_modules
 /build
 /docs
-/target
+/reports
 octo-board*
 
 /tests/e2e/reports/
