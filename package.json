@@ -1,18 +1,19 @@
 {
   "name": "octo-board",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:package": "npm run build && npm run doc",
     "lint": "vue-cli-service lint",
-    "lint:report": "eslint -c .eslintrc.js -f checkstyle src -o target/checkstyle-result.xml",
+    "lint:report": "eslint -c .eslintrc.js -f checkstyle src -o reports/checkstyle-result.xml",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
     "doc": "esdoc",
     "changelog": "markdown CHANGELOG",
-    "rebuild": "npm rebuild node-sass"
+    "rebuild": "npm rebuild node-sass",
+    "sonar": "sonar-scanner"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",
@@ -45,15 +46,17 @@
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-vue": "^7.14.0",
-    "jest-junit": "^12.2.0",
+    "jest-sonar-reporter": "^2.0.0",
     "markdown-to-html": "0.0.13",
     "node-sass": "^6.0.1",
     "sass-loader": "^10",
+    "sonarqube-scanner": "^2.8.1",
     "vue-jest": "^3.0.7",
     "vue-template-compiler": "^2.6.14"
   },
-  "jest-junit": {
-    "outputDirectory": "./target",
-    "outputName": "tests.xml"
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
   }
 }
