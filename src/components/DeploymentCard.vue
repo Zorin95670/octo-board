@@ -12,7 +12,7 @@
           class="text-h6">
           <span
             class="d-inline-block text-truncate"
-            style="max-width: 65px"
+            style="max-width: 7rem"
             :title="deployment.version">
             {{ deployment.version }}
           </span>
@@ -26,7 +26,7 @@
       </template>
       <span
         class="text-h6 d-inline-block text-truncate"
-        style="max-width: 75px"
+        style="max-width: 7rem"
         :title="deployment.version"
         v-else>
         {{ deployment.version }}

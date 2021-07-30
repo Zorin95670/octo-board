@@ -20,6 +20,12 @@
         :disabled="subProjectsLoading || total === 0">
         <v-icon>mdi-archive</v-icon>
       </v-btn>
+      <v-btn
+        icon
+        title="See historic of project."
+        :to="`/historic?project=${this.name}`">
+        <v-icon>mdi-history</v-icon>
+      </v-btn>
       <v-btn icon title="Associated jira issues.">
         <v-icon>mdi-jira</v-icon>
       </v-btn>

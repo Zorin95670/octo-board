@@ -1,5 +1,17 @@
 # octo-board changelog
 
+## 2021/07/28: version 2.1.0
+
+### New features
+
+* Add link to project history in project card
+
+### Bug fixes
+
+* Fix display boolean in HistoricTable
+* Fix text truncate in Deployment card
+* Fix visibity of environment name
+
 ## 2021/07/28: version 2.0.3
 
 ### Misc.

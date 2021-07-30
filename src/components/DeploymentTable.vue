@@ -9,7 +9,10 @@
           :cols="environment.maxClients">
           <v-container fluid>
             <v-card align="center" justify="center">
-              <v-card-text>{{ environment.name }}</v-card-text>
+              <v-card-title
+                class="text-no-wrap justify-center">
+                {{ environment.name }}
+              </v-card-title>
             </v-card>
           </v-container>
         </v-col>
