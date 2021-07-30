@@ -8,7 +8,7 @@ describe('Test NavigationPanelMixin', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallowMount({
-      render() {},
+      render: jest.fn(),
       mixins: [mixin],
     }, {
       localVue,
