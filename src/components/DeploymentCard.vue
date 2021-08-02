@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     insertDate() {
-      return moment.utc(this.deployment.insertDate);
+      return moment.utc(this.deployment.insertDate, 'YYYY-MM-DD HH:mm:ss');
     },
     isHotNew() {
       const now = moment();
