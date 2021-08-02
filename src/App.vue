@@ -38,6 +38,7 @@ import ApplicationBar from '@/components/commons/ApplicationBar.vue';
 import NavigationItems from '@/components/commons/NavigationItems.vue';
 import ApplicationFooter from '@/components/commons/ApplicationFooter.vue';
 import ApplicationSnackbar from '@/components/commons/ApplicationSnackbar.vue';
+import AuthenticationMixin from '@/mixins/AuthenticationMixin';
 
 export default {
   name: 'app',
@@ -47,10 +48,13 @@ export default {
     NavigationItems,
     ApplicationBar,
   },
+  mixins: [AuthenticationMixin],
   mounted() {
     this.$http.get('/octo-spy/api/info').then((response) => {
       this.version.api = response.data.version;
     });
+
+    this.authenticateFromStorage(window.localStorage);
   },
   data() {
     return {

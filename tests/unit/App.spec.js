@@ -4,7 +4,7 @@ import App from '@/App.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Vuetify from 'vuetify'
+import Vuetify from 'vuetify';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();
@@ -26,6 +26,11 @@ describe('App.vue', () => {
       localVue,
       router,
       vuetify,
+      mixins: [{
+        methods: {
+          authenticateFromStorage: jest.fn(),
+        },
+      }],
     });
   });
 

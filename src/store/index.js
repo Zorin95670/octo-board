@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Snackbar from '@/store/Snackbar';
+import User from '@/store/User';
 
 Vue.use(Vuex);
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
   },
   modules: {
     snackbar: Snackbar,
+    user: User,
   },
 });

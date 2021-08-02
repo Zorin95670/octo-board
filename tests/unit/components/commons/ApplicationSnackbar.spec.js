@@ -4,8 +4,7 @@ import Vuetify from 'vuetify';
 
 const localVue = createLocalVue();
 const $store = {
-  subscribe() {
-  },
+  subscribe: jest.fn(),
 };
 
 describe('ApplicationSnackbar', () => {

@@ -6,7 +6,7 @@
       <v-list-item
         :key="item.text"
         :to="item.route"
-        v-if="item.permitAll"
+        v-if="item.permitAll || isUserGranted(item.roles)"
         link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -22,9 +22,11 @@
 
 <script>
 import navigationItems from '@/assets/navLinks.json';
+import AuthenticationMixin from '@/mixins/AuthenticationMixin';
 
 export default {
   name: 'NavigationItems',
+  mixins: [AuthenticationMixin],
   data() {
     return {
       navigationItems,
@@ -32,6 +34,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

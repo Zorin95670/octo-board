@@ -7,7 +7,7 @@ describe('Test NunjucksMixin', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallowMount({
-      render() {},
+      render: jest.fn(),
       mixins: [mixin],
     }, {
       localVue,

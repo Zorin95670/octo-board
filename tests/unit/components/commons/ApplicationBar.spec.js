@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import store from '@/store';
 import component from '@/components/commons/ApplicationBar.vue';
 
 const localVue = createLocalVue();
@@ -13,13 +14,14 @@ describe('ApplicationBar', () => {
   beforeAll(() => {
     wrapper = shallowMount(component, {
       localVue,
+      store,
       mocks: {
         $route,
       },
     });
   });
 
-  it('Test component instantiation', () => {
-    expect(wrapper).toBeTruthy();
+  it('Test computed: login', () => {
+    expect(wrapper.vm.login).toBeNull();
   });
 });
