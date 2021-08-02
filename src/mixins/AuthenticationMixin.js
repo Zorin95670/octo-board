@@ -1,4 +1,7 @@
+import AlertMixin from '@/mixins/AlertMixin';
+
 const AuthenticationMixin = {
+  mixins: [AlertMixin],
   computed: {
     isConnected() {
       return this.$store.state.user.isConnected;
@@ -8,6 +11,9 @@ const AuthenticationMixin = {
     },
   },
   methods: {
+    isAdministrator() {
+      return this.isUserGranted(['ADMIN']);
+    },
     isUserGranted(roles) {
       return roles.some((role) => this.roles.includes(role));
     },
@@ -28,6 +34,11 @@ const AuthenticationMixin = {
         } else {
           storage.removeItem('user-token');
         }
+
+        if (data.roles.includes('ADMIN')) {
+          return this.loadAlerts();
+        }
+        return Promise.resolve();
       }).catch((response) => {
         this.$store.commit(
           'showMessage',

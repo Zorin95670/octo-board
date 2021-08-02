@@ -1,8 +1,10 @@
 {
   "color": {
-    "critical": "red accent-4"
+    "critical": "red accent-4",
+    "warning": "orange accent-4"
   },
   "icon": {
-    "security": "mdi-shield-lock"
+    "security": "mdi-shield-lock",
+    "incompatible": "mdi-database-off"
   }
 }
