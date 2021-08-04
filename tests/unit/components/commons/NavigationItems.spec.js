@@ -13,6 +13,16 @@ describe('NavigationItems', () => {
     wrapper = shallowMount(component, {
       localVue,
       vuetify,
+      mocks: {
+        $store: {
+          state: {
+            user: {
+              isConnected: true,
+              roles: [],
+            },
+          },
+        },
+      },
     });
   });
 

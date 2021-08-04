@@ -19,5 +19,12 @@
     "route": "/historic",
     "permitAll": true,
     "roles": null
+  },
+  {
+    "icon": "mdi-cog",
+    "text": "Settings",
+    "route": "/settings",
+    "permitAll": false,
+    "roles": ["ADMIN"]
   }
 ]

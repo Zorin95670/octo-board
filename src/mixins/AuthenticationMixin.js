@@ -63,6 +63,12 @@ const AuthenticationMixin = {
         this.$router.push('/');
       }
     },
+    updateToken(storage, token) {
+      this.$store.commit('updateUserToken', token);
+      if (storage.getItem('user-token') != null) {
+        storage.setItem('user-token', token);
+      }
+    },
   },
 };
 
