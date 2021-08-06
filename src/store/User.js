@@ -9,6 +9,9 @@ const user = {
     email: null,
   },
   mutations: {
+    updateUserToken(state, value) {
+      state.token = value;
+    },
     setUser(state, value) {
       state.isConnected = true;
       state.token = value.token;

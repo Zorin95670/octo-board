@@ -11,7 +11,6 @@ import { version } from '../package.json';
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
-
 new Vue({
   vuetify,
   router,

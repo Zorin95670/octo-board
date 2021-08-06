@@ -8,10 +8,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     navigationPanel: false,
+    alerts: [],
   },
   mutations: {
     setNavigationPanelState(state, value) {
       state.navigationPanel = value;
+    },
+    setAlerts(state, value) {
+      state.alerts = value;
     },
   },
   actions: {

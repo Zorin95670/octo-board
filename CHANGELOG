@@ -1,5 +1,12 @@
 # octo-board changelog
 
+## 2021/08/06: version 2.3.0
+
+### New features
+
+* Setup default administrator alerts
+* Add default settings for administrator
+
 ## 2021/08/02: version 2.2.0
 
 ### New features
