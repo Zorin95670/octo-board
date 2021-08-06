@@ -47,7 +47,38 @@ describe('Test AuthenticationMixin', () => {
       .toBeTruthy();
   });
 
-  it('Test method: authenticate, success', async () => {
+  it('Test method: authenticate, success admin', async () => {
+    mock.onGet('/octo-spy/api/users/me')
+      .reply(200, {
+        roles: ['ADMIN'],
+        user: {
+          login: 'a',
+          firstname: 'b',
+          lastname: 'c',
+          email: 'd',
+          active: true,
+        },
+      });
+    const storage = {
+      removeItem: jest.fn(),
+      setItem: jest.fn(),
+    };
+    wrapper.vm.loadAlerts = jest.fn();
+
+    await wrapper.vm.authenticate(storage, 'token');
+    expect(storage.removeItem).toBeCalled();
+    expect(wrapper.vm.loadAlerts).toBeCalled();
+
+    await wrapper.vm.authenticate(storage, 'token', false);
+    expect(storage.removeItem).toBeCalled();
+    expect(wrapper.vm.loadAlerts).toBeCalled();
+
+    await wrapper.vm.authenticate(storage, 'token', true);
+    expect(storage.setItem).toBeCalled();
+    expect(wrapper.vm.loadAlerts).toBeCalled();
+  });
+
+  it('Test method: authenticate, success no admin', async () => {
     mock.onGet('/octo-spy/api/users/me')
       .reply(200, {
         roles: ['test'],
@@ -116,5 +147,21 @@ describe('Test AuthenticationMixin', () => {
     wrapper.vm.disconnect(storage);
     expect(storage.getItem).toBeCalled();
     expect(storage.removeItem).toBeCalled();
+  });
+
+  it('Test method: updateToken', () => {
+    const storage = {
+      getItem: jest.fn(() => null),
+      setItem: jest.fn(),
+    };
+
+    wrapper.vm.updateToken(storage, 'token');
+    expect(storage.getItem).toBeCalled();
+    expect(storage.setItem).not.toBeCalled();
+
+    storage.getItem = jest.fn(() => true);
+    wrapper.vm.updateToken(storage, 'token');
+    expect(storage.getItem).toBeCalled();
+    expect(storage.setItem).toBeCalled();
   });
 });

@@ -31,8 +31,10 @@ const AuthenticationMixin = {
         this.$store.commit('setUser', data);
         if (keepActive) {
           storage.setItem('user-token', token);
+          storage.setItem('user-roles', data.roles);
         } else {
           storage.removeItem('user-token');
+          storage.removeItem('user-roles');
         }
 
         if (data.roles.includes('ADMIN')) {
@@ -51,13 +53,17 @@ const AuthenticationMixin = {
       const token = storage.getItem('user-token');
       if (token != null) {
         this.authenticate(storage, token, true)
-          .catch(() => storage.removeItem('user-token'));
+          .catch(() => {
+            storage.removeItem('user-token');
+            storage.removeItem('user-roles');
+          });
       }
     },
     disconnect(storage) {
       this.$store.commit('disconnect');
       if (storage.getItem('user-token') != null) {
         storage.removeItem('user-token');
+        storage.removeItem('user-roles');
       }
       if (this.$route.path !== '/') {
         this.$router.push('/');
