@@ -1,5 +1,8 @@
 <template>
-  <v-card align="center" justify="center">
+  <v-card
+    align="center"
+    justify="center"
+    :color="`rgb(${color})`">
     <v-card-title>{{ name }}</v-card-title>
     <v-card-text v-if="displaySubProjects">
       <v-container fluid v-if="subProjectsLoading">
