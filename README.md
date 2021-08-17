@@ -37,23 +37,13 @@ npm run test:e2e
 npm run test:unit
 ```
 
-### Generate documentation
-```
-npm run doc
-```
-
-This command will generate a `docs` directory. It contains all documentation, show index.html for start.
-
-To write documentation see [Documentation Reference](https://esdoc.org/manual/tags.html)
-
 ### Docker
 
 Build image:
 
 ```
-docker build --build-arg NPM_TOKEN=${NPM_TOKEN} -t octo-board
+docker build -t octo-board .
 ```
-NPM_TOKEN refer to internal registry.
 
 Use image:
 ```
