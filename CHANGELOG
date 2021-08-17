@@ -1,5 +1,13 @@
 # octo-board changelog
 
+## 2021/08/17: version 2.4.0
+
+### New features
+
+* Update logo
+* Remove breadcrumb in sub-projects list
+* Add settings to update project color
+
 ## 2021/08/09: version 2.3.1
 
 ### Bug fixes
