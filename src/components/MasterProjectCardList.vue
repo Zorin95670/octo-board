@@ -3,11 +3,14 @@
     <v-row>
       <v-col
         v-for="project in projects"
-        :key="project">
+        :key="project.name">
         <project-card
-          :name="project"
-          :class="projectColors[project]"
-          :is-master-project="true"/>
+          :name="project.name"
+          :project-id="project.id"
+          :color="project.color"
+          :default-color="project.color"
+          :is-master-project="true"
+          @onProjectUpdate="onProjectUpdate"/>
       </v-col>
     </v-row>
   </v-container>
@@ -15,16 +18,27 @@
 
 <script>
 import ProjectCard from '@/components/ProjectCard.vue';
-import projectColors from '@/assets/project.color.json';
 
 export default {
   name: 'MasterProjectCardList',
   components: { ProjectCard },
   data() {
     return {
-      projectColors,
-      projects: ['Harmony', 'Karajan', 'Workflow'],
+      projects: [],
     };
+  },
+  created() {
+    this.loadProjects();
+  },
+  methods: {
+    loadProjects() {
+      return this.$http.get('/octo-spy/api/project?isMaster=true').then((response) => {
+        this.projects = response.data;
+      });
+    },
+    onProjectUpdate() {
+      return this.loadProjects();
+    },
   },
 };
 </script>

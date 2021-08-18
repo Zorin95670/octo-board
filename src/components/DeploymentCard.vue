@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :class="deployment.color"
+    :color="color"
     align="center"
     justify="center">
     <v-card-title>{{ deployment.client }}</v-card-title>
@@ -50,6 +50,9 @@ export default {
     deployment: Object,
   },
   computed: {
+    color() {
+      return `rgb(${this.deployment.color}, ${1 - this.deployment.colorIndex * 0.1})`;
+    },
     insertDate() {
       return moment.utc(this.deployment.insertDate, 'YYYY-MM-DD HH:mm:ss');
     },

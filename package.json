@@ -1,16 +1,14 @@
 {
   "name": "octo-board",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:package": "npm run build && npm run doc",
     "lint": "vue-cli-service lint",
     "lint:report": "eslint -c .eslintrc.js -f checkstyle src -o reports/checkstyle-result.xml",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
-    "doc": "esdoc",
     "changelog": "markdown CHANGELOG",
     "rebuild": "npm rebuild node-sass",
     "sonar": "sonar-scanner"

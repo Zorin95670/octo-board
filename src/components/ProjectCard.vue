@@ -1,5 +1,8 @@
 <template>
-  <v-card align="center" justify="center">
+  <v-card
+    align="center"
+    justify="center"
+    :color="`rgb(${color})`">
     <v-card-title>{{ name }}</v-card-title>
     <v-card-text v-if="displaySubProjects">
       <v-container fluid v-if="subProjectsLoading">
@@ -29,18 +32,49 @@
       <v-btn icon title="Associated jira issues.">
         <v-icon>mdi-jira</v-icon>
       </v-btn>
-      <v-btn icon title="Project settings.">
-        <v-icon>mdi-cog</v-icon>
-      </v-btn>
+      <v-menu
+        v-model="colorMenu"
+        :close-on-content-click="false"
+        offset-y
+        v-if="isAdministrator()">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            title="Project settings."
+            v-bind="attrs"
+            v-on="on">
+            <v-icon>mdi-cog</v-icon>
+          </v-btn>
+        </template>
+        <color-project-panel
+          :project-name="name"
+          :project-id="projectId"
+          :project-color="defaultColor"
+          @onColorUpdate="onProjectUpdate"/>
+      </v-menu>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import AuthenticationMixin from '@/mixins/AuthenticationMixin';
+import ColorProjectPanel from '@/components/ColorProjectPanel.vue';
+
 export default {
   name: 'ProjectCard',
+  components: { ColorProjectPanel },
+  mixins: [AuthenticationMixin],
   props: {
     name: String,
+    projectId: Number,
+    color: {
+      type: String,
+      default: null,
+    },
+    defaultColor: {
+      type: String,
+      default: null,
+    },
     isMasterProject: {
       type: Boolean,
       default: false,
@@ -51,25 +85,36 @@ export default {
     },
   },
   created() {
-    if (!this.isMasterProject) {
-      return;
-    }
-    this.$http.get('/octo-spy/api/project/count', {
-      params: {
-        field: 'masterProject',
-        masterProject: this.name,
-        name: `not_${this.name}`,
-      },
-    }).then((response) => {
-      this.subProjectsLoading = false;
-      this.total = response.data[this.name] || 0;
-    });
+    this.getTotalOfSubProject();
   },
   data() {
     return {
+      colorMenu: null,
       total: 0,
       subProjectsLoading: true,
     };
+  },
+  methods: {
+    getTotalOfSubProject() {
+      if (!this.isMasterProject) {
+        return false;
+      }
+      return this.$http.get('/octo-spy/api/project/count', {
+        params: {
+          field: 'masterProject',
+          masterProject: this.name,
+          name: `not_${this.name}`,
+        },
+      })
+        .then((response) => {
+          this.subProjectsLoading = false;
+          this.total = response.data[this.name] || 0;
+        });
+    },
+    onProjectUpdate() {
+      this.colorMenu = false;
+      this.$emit('onProjectUpdate', this.projectId);
+    },
   },
 };
 </script>

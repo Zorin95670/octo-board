@@ -24,36 +24,39 @@
     <v-row
       justify="center" aligns="center"
       v-for="project in projects"
-      :key="`${project}`">
+      :key="`${project.name}`">
       <v-col class="ma-0 pa-0" :cols="2">
         <v-container fluid>
           <project-card
-            :name="project"
+            :name="project.name"
+            :project-id="project.id"
             :display-sub-projects="false"
-            :is-master-project="masterProject === null"/>
+            :default-color="project.color"
+            :is-master-project="masterProject === null"
+            @onProjectUpdate="onProjectUpdate"/>
         </v-container>
       </v-col>
       <template
         v-for="(environment, index) in environments">
         <v-col
-          :cols="environment.clients[project].length === 1 ? environment.maxClients : 1"
+          :cols="environment.clients[project.name].length === 1 ? environment.maxClients : 1"
           class="ma-0 pa-0"
-          v-for="client in environment.clients[project]"
-          :key="`${project}-${environment.name}-${client}`">
+          v-for="client in environment.clients[project.name]"
+          :key="`${project.name}-${environment.name}-${client}`">
           <v-container fluid>
             <deployment-card
-              :deployment="items[project][environment.name][client]"/>
+              :deployment="items[project.name][environment.name][client]"/>
           </v-container>
         </v-col>
         <v-col
-          :cols="environment.maxClients - environment.clients[project].length"
+          :cols="environment.maxClients - environment.clients[project.name].length"
           :key="`${project}-${environment.name}-none`"
-          v-if="environment.maxClients - environment.clients[project].length > 0
-          && environment.clients[project].length > 1">
+          v-if="environment.maxClients - environment.clients[project.name].length > 0
+          && environment.clients[project.name].length > 1">
           <v-card></v-card>
         </v-col>
         <v-divider
-          :key="`${project}-${environment.name}-divider`"
+          :key="`${project.name}-${environment.name}-divider`"
           v-if="index < environments.length - 1" vertical/>
       </template>
     </v-row>
@@ -63,11 +66,13 @@
 <script>
 import DeploymentCard from '@/components/DeploymentCard.vue';
 import ProjectCard from '@/components/ProjectCard.vue';
-import projectColors from '@/assets/project.color.json';
 
 export default {
   name: 'DeploymentTable',
-  components: { ProjectCard, DeploymentCard },
+  components: {
+    ProjectCard,
+    DeploymentCard,
+  },
   props: {
     masterProject: {
       type: String,
@@ -75,60 +80,98 @@ export default {
     },
   },
   created() {
-    const params = { onMasterProject: true };
     if (this.masterProject !== null) {
-      params.masterProject = this.masterProject;
-      params.onMasterProject = false;
-      params.name = `not_${this.masterProject}`;
+      this.params.masterProject = this.masterProject;
+      this.params.onMasterProject = false;
+      this.params.name = `not_${this.masterProject}`;
     }
-    this.$http.all([
-      this.$http.get('/octo-spy/api/environment'),
-      this.$http.get('/octo-spy/api/deployment/last', { params }),
-    ]).then((values) => {
-      const deployments = values[1].data;
+    this.load(this.params);
+  },
+  data() {
+    return {
+      params: {
+        onMasterProject: true,
+      },
+      items: {},
+      environments: [],
+      projects: [],
+      maxClients: {},
+    };
+  },
+  methods: {
+    onProjectUpdate() {
+      return this.load(this.params);
+    },
+    load(params) {
+      return this.$http.all([
+        this.$http.get('/octo-spy/api/environment'),
+        this.$http.get('/octo-spy/api/deployment/last', { params }),
+      ])
+        .then((values) => {
+          const environmentNames = values[0].data;
+          const deployments = values[1].data;
 
-      this.projects = [...new Set(deployments.map((deployment) => deployment.project))];
-
-      values[0].data.forEach((env) => {
+          this.projects = this.initProjects(deployments);
+          this.environments = this.initEnvironments(
+            this.projects,
+            deployments,
+            environmentNames,
+          );
+          this.items = this.initTableData(deployments, this.environments);
+        });
+    },
+    initProjects(deployments) {
+      return deployments.reduce((acc, deployment) => {
+        if (!acc.some((project) => project.id === deployment.projectId)) {
+          acc.push({
+            id: deployment.projectId,
+            name: deployment.project,
+            color: deployment.color || '63,81,181',
+          });
+        }
+        return acc;
+      }, []);
+    },
+    initEnvironments(projects, deployments, environmentNames) {
+      const environments = [];
+      environmentNames.forEach((env) => {
         const clients = {};
-        this.projects.forEach((project) => {
-          clients[project] = deployments.filter((deployment) => deployment.environment === env.name
-            && deployment.project === project).map((deployment) => deployment.client);
+        projects.forEach((project) => {
+          clients[project.name] = deployments
+            .filter((deployment) => deployment.environment === env.name
+              && deployment.projectId === project.id)
+            .map((deployment) => deployment.client);
         });
         const array = Object.keys(clients)
           .map((key) => clients[key].length);
-        this.environments.push({
-          name: env.name,
-          clients,
-          maxClients: Math.max(...array),
-        });
+        if (Math.max(...array) > 0) {
+          environments.push({
+            name: env.name,
+            clients,
+            maxClients: Math.max(...array),
+          });
+        }
       });
-
-      this.items = deployments.reduce((acc, deployment) => {
+      return environments;
+    },
+    initTableData(deployments, environments) {
+      return deployments.reduce((acc, deployment) => {
         if (!acc[deployment.project]) {
           acc[deployment.project] = {};
         }
         if (!acc[deployment.project][deployment.environment]) {
           acc[deployment.project][deployment.environment] = {};
         }
-        const color = this.projectColors[deployment.project];
-        const index = this.environments.findIndex((env) => env.name === deployment.environment) + 1;
+        const index = environments
+          .findIndex((env) => env.name === deployment.environment) + 1;
         acc[deployment.project][deployment.environment][deployment.client] = {
           ...deployment,
-          color: `${color}  darken-${index}`,
+          color: deployment.color || '63,81,181',
+          colorIndex: index,
         };
         return acc;
       }, {});
-    });
-  },
-  data() {
-    return {
-      items: {},
-      environments: [],
-      projects: [],
-      maxClients: {},
-      projectColors,
-    };
+    },
   },
 };
 </script>
