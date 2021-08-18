@@ -14,6 +14,22 @@
           href="/changelog.html">
           <v-icon>mdi-math-log</v-icon>
         </v-btn>
+        <v-btn
+          icon
+          link
+          target="_blank"
+          title="Issue tracker"
+          href="https://github.com/Zorin95670/octo/issues/new/choose">
+          <v-icon>mdi-radar</v-icon>
+        </v-btn>
+        <v-btn
+          icon
+          link
+          target="_blank"
+          title="Documentation"
+          href="https://zorin95670.github.io/octo-docs/#introduction">
+          <v-icon>mdi-book-open-blank-variant</v-icon>
+        </v-btn>
       </v-card-text>
 
       <v-divider></v-divider>
