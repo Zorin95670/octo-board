@@ -1,5 +1,15 @@
 # octo-board changelog
 
+## 2021/08/18: version 2.6.0
+
+### New features
+
+* Add documentation and issue tracker links in footer
+
+### Bug fixes
+
+* Set "sortBy" on sort selection in historic table
+
 ## 2021/08/18: version 2.5.0
 
 ### New features
