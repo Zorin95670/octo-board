@@ -33,19 +33,72 @@
       </span>
     </v-card-text>
 
+    <v-card-actions v-if="isAdministrator() && inProgress">
+      <v-spacer/>
+      <v-btn
+        x-small
+        color="warning"
+        title="Stop progress."
+        @click="confirmationDialog = true">
+        <v-icon>mdi-stop</v-icon>
+        Progress
+      </v-btn>
+      <v-spacer/>
+    </v-card-actions>
+    <v-dialog
+      v-model="confirmationDialog"
+      max-width="420"
+      v-if="isAdministrator() && inProgress">
+      <v-card>
+        <v-card-title class="text-h5">
+          Confirmation
+        </v-card-title>
+
+        <v-card-text>
+          Stop progress for {{deployment.project}} on
+          {{deployment.client}} {{deployment.environment}} ?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="red darken-1"
+            text
+            @click="dialog = false">
+            No
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="stopProgress">
+            Yes
+          </v-btn>
+        </v-card-actions>
+
+        <v-progress-linear
+          indeterminate
+          absolute
+          bottom
+          :active="progressLoading"></v-progress-linear>
+      </v-card>
+    </v-dialog>
+
     <v-progress-linear
       indeterminate
       absolute
       bottom
-      :active="deployment.inProgress"></v-progress-linear>
+      :active="inProgress"></v-progress-linear>
   </v-card>
 </template>
 
 <script>
 import moment from 'moment';
+import AuthenticationMixin from '../mixins/AuthenticationMixin';
 
 export default {
   name: 'DeploymentCard',
+  mixins: [AuthenticationMixin],
   props: {
     deployment: Object,
   },
@@ -65,6 +118,33 @@ export default {
       return this.insertDate.year() === now.year()
         && this.insertDate.month() === now.month()
         && (now.unix() - this.insertDate.unix()) <= 86400;
+    },
+  },
+  data() {
+    return {
+      confirmationDialog: false,
+      progressLoading: false,
+      inProgress: this.deployment.inProgress,
+    };
+  },
+  methods: {
+    stopProgress() {
+      this.progressLoading = true;
+      return this.$http.delete('/octo-spy/api/deployment/progress', {
+        headers: {
+          Authorization: `Basic ${this.token}`,
+        },
+        data: {
+          project: this.deployment.project,
+          environment: this.deployment.environment,
+          client: this.deployment.client,
+          version: this.deployment.version,
+        },
+      }).then(() => {
+        this.progressLoading = false;
+        this.confirmationDialog = false;
+        this.inProgress = false;
+      });
     },
   },
 };
