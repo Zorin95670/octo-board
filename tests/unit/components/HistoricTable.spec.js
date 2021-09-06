@@ -97,12 +97,15 @@ describe('App.vue', () => {
   it('Test method: tableUpdate', () => {
     wrapper.vm.setPaginationAndSearch = jest.fn();
 
-    wrapper.vm.tableUpdate({ sortDesc: [] });
+    wrapper.vm.tableUpdate({ sortDesc: [], sortBy: [] });
     expect(wrapper.vm.sort).toBeNull();
-    wrapper.vm.tableUpdate({ sortDesc: [true] });
+    expect(wrapper.vm.order).toBeNull();
+    wrapper.vm.tableUpdate({ sortDesc: [true], sortBy: ['test'] });
     expect(wrapper.vm.sort).toEqual('desc');
-    wrapper.vm.tableUpdate({ sortDesc: [false] });
+    expect(wrapper.vm.order).toEqual('test');
+    wrapper.vm.tableUpdate({ sortDesc: [false], sortBy: ['test'] });
     expect(wrapper.vm.sort).toEqual('asc');
+    expect(wrapper.vm.order).toEqual('test');
     expect(wrapper.vm.setPaginationAndSearch).toBeCalledTimes(3);
   });
 

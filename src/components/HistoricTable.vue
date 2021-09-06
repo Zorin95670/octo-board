@@ -148,8 +148,10 @@ export default {
     tableUpdate(options) {
       if (options.sortDesc.length > 0) {
         this.sort = (options.sortDesc[0]) ? 'desc' : 'asc';
+        [this.order] = options.sortBy;
       } else {
         this.sort = null;
+        this.order = null;
       }
       this.setPaginationAndSearch(1);
     },
