@@ -1,6 +1,13 @@
 # octo-board changelog
 
-## 2021/08/18: version 2.6.0
+## 2021/09/08: version 2.6.1
+
+### Bug fixes
+
+* Fix client sorting on deployments table
+* Fix error on stop unknown progress
+
+## 2021/09/07: version 2.6.0
 
 ### New features
 
