@@ -140,6 +140,9 @@ export default {
           client: this.deployment.client,
           version: this.deployment.version,
         },
+        validateStatus(status) {
+          return status === 204 || status === 404;
+        },
       }).then(() => {
         this.progressLoading = false;
         this.confirmationDialog = false;
