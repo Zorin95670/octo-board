@@ -140,7 +140,8 @@ export default {
           clients[project.name] = deployments
             .filter((deployment) => deployment.environment === env.name
               && deployment.projectId === project.id)
-            .map((deployment) => deployment.client);
+            .map((deployment) => deployment.client)
+            .sort();
         });
         const array = Object.keys(clients)
           .map((key) => clients[key].length);

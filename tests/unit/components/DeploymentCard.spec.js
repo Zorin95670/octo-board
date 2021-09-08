@@ -71,5 +71,17 @@ describe('App.vue', () => {
     expect(wrapper.vm.progressLoading).toBeFalsy();
     expect(wrapper.vm.confirmationDialog).toBeFalsy();
     expect(wrapper.vm.inProgress).toBeFalsy();
+
+    mock.onDelete('/octo-spy/api/deployment/progress')
+      .reply(404);
+    wrapper.vm.progressLoading = true;
+    wrapper.vm.confirmationDialog = true;
+    wrapper.vm.inProgress = true;
+
+    await wrapper.vm.stopProgress();
+
+    expect(wrapper.vm.progressLoading).toBeFalsy();
+    expect(wrapper.vm.confirmationDialog).toBeFalsy();
+    expect(wrapper.vm.inProgress).toBeFalsy();
   });
 });
