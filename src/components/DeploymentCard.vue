@@ -138,7 +138,7 @@ export default {
           project: this.deployment.project,
           environment: this.deployment.environment,
           client: this.deployment.client,
-          version: this.deployment.version,
+          inProgress: true,
         },
         validateStatus(status) {
           return status === 204 || status === 404;
