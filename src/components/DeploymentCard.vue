@@ -132,7 +132,7 @@ export default {
       this.progressLoading = true;
       return this.$http.delete('/octo-spy/api/deployment/progress', {
         headers: {
-          Authorization: `Basic ${this.token}`,
+          Authorization: `Basic ${this.getUserToken()}`,
         },
         data: {
           project: this.deployment.project,

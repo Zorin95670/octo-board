@@ -80,9 +80,6 @@ export default {
   name: 'AdministratorSettings',
   mixins: [AuthenticationMixin],
   computed: {
-    token() {
-      return this.$store.state.user.token;
-    },
     login() {
       return this.$store.state.user.login;
     },
@@ -123,7 +120,7 @@ export default {
       this.$http.put('/octo-spy/api/administrator/password', Buffer.from(this.password, 'utf8')
         .toString('base64'), {
         headers: {
-          Authorization: `Basic ${this.token}`,
+          Authorization: `Basic ${this.getUserToken()}`,
         },
       })
         .then(() => {
@@ -145,7 +142,7 @@ export default {
 
       this.$http.put('/octo-spy/api/administrator/email', this.email, {
         headers: {
-          Authorization: `Basic ${this.token}`,
+          Authorization: `Basic ${this.getUserToken()}`,
         },
       })
         .then(() => {
