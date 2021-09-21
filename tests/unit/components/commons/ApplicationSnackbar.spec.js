@@ -61,7 +61,7 @@ describe('ApplicationSnackbar', () => {
 
     wrapper.vm.onHover(false);
     wrapper.vm.closingInterval();
-    expect(wrapper.vm.percent).toEqual(5);
+    expect(wrapper.vm.percent).toEqual(2);
 
     wrapper.vm.percent = 101;
     wrapper.vm.closingInterval();

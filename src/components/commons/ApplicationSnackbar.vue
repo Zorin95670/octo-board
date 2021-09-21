@@ -2,7 +2,8 @@
   <v-snackbar
     v-model="show"
     top
-    :color="color">
+    :color="color"
+    :timeout="-1">
     <v-container ma-0 pa-0 fill-height fluid
                  @mouseover="onHover(true)"
                  @mouseleave="onHover(false)">
@@ -35,7 +36,8 @@ export default {
     return {
       hover: false,
       percent: 0,
-      test: 100,
+      increment: 0,
+      timeout: 0,
       show: false,
       message: '',
       color: '',
@@ -49,6 +51,8 @@ export default {
         this.message = state.snackbar.message;
         this.color = state.snackbar.color;
         this.icon = state.snackbar.icon || null;
+        this.timeout = state.snackbar.timeout || 5;
+        this.increment = 100 / (this.timeout * 10);
         this.show = true;
         this.percent = 0;
         this.timer = window.setInterval(this.closingInterval.bind(this), 100);
@@ -66,7 +70,7 @@ export default {
         this.show = false;
         return;
       }
-      this.percent += 5;
+      this.percent += this.increment;
     },
   },
 };
