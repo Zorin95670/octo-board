@@ -1,5 +1,15 @@
 # octo-board changelog
 
+## 2021/09/24: version 2.7.0
+
+### New features
+
+* Permit to naviguate to project page when there are no sub-project
+* Add project management for administrator
+* Add a global button to make actions for administrator
+* Add popup to see new versions
+* Add token management
+
 ## 2021/09/15: version 2.6.2
 
 ### Bug fixes
