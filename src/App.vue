@@ -57,9 +57,14 @@ export default {
   },
   mixins: [AuthenticationMixin, DialogMixin],
   mounted() {
-    this.$http.get('/octo-spy/api/info').then((response) => {
-      this.version.api = response.data.version;
-    });
+    this.$http.get('/octo-spy/api/info')
+      .then((response) => {
+        this.version.api = response.data.version;
+      });
+    this.$http.get('/changelog.json')
+      .then((response) => {
+        this.manageVersions(window.localStorage, response.data);
+      });
 
     this.authenticateFromStorage(window.localStorage);
   },
@@ -71,6 +76,23 @@ export default {
         api: '-',
       },
     };
+  },
+  methods: {
+    manageVersions(storage, versions) {
+      const currentVersion = storage.getItem('last-version');
+      const unreadVersions = [];
+      versions.some((data) => {
+        if (data.version === currentVersion) {
+          return true;
+        }
+        unreadVersions.push(data);
+        return false;
+      });
+      if (unreadVersions.length > 0) {
+        storage.setItem('last-version', unreadVersions[0].version);
+        this.openDialog('newVersionsCard', unreadVersions);
+      }
+    },
   },
 };
 </script>

@@ -20,6 +20,9 @@ describe('App.vue', () => {
   mock.onGet('/octo-spy/api/info')
     .reply(200, { version: 'test' });
 
+  mock.onGet('/changelog.json')
+    .reply(200, []);
+
   beforeAll(() => {
     vuetify = new Vuetify();
     wrapper = shallowMount(App, {
@@ -31,11 +34,49 @@ describe('App.vue', () => {
           authenticateFromStorage: jest.fn(),
         },
       }],
+      mocks: {
+        $store: {
+          commit: jest.fn(),
+          state: {
+            user: {
+              login: null,
+              token: null,
+              roles: [],
+            },
+          },
+        },
+      },
     });
   });
 
   it('Simple test', async () => {
     expect(wrapper).toBeTruthy();
     expect(wrapper.vm.version.api).toEqual('test');
+  });
+
+  it('Test method: manageVersions', () => {
+    let versions = null;
+    let version = null;
+
+    const setItem = (name, data) => { version = data; };
+    wrapper.vm.openDialog = jest.fn((name, array) => { versions = array; });
+
+    wrapper.vm.manageVersions({
+      getItem: () => '2.7.0',
+      setItem,
+    }, []);
+    expect(wrapper.vm.openDialog).not.toBeCalled();
+    wrapper.vm.manageVersions({
+      getItem: () => '2.7.0',
+      setItem,
+    }, [{ version: '2.7.0' }]);
+    expect(wrapper.vm.openDialog).not.toBeCalled();
+    wrapper.vm.manageVersions({
+      getItem: () => '2.7.0',
+      setItem,
+    }, [{ version: '2.7.1' }]);
+    expect(wrapper.vm.openDialog).toBeCalled();
+    expect(versions).toEqual([{ version: '2.7.1' }]);
+    expect(version).toEqual('2.7.1');
   });
 });
