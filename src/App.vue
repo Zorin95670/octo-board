@@ -30,6 +30,7 @@
       </v-container>
     </v-main>
     <application-footer/>
+    <application-dialog/>
   </v-app>
 </template>
 
@@ -39,16 +40,20 @@ import NavigationItems from '@/components/commons/NavigationItems.vue';
 import ApplicationFooter from '@/components/commons/ApplicationFooter.vue';
 import ApplicationSnackbar from '@/components/commons/ApplicationSnackbar.vue';
 import AuthenticationMixin from '@/mixins/AuthenticationMixin';
+import ApplicationDialog from './components/commons/ApplicationDialog.vue';
+import DialogMixin from './mixins/DialogMixin';
 
 export default {
   name: 'app',
   components: {
+    ApplicationDialog,
+    ActionMenu,
     ApplicationSnackbar,
     ApplicationFooter,
     NavigationItems,
     ApplicationBar,
   },
-  mixins: [AuthenticationMixin],
+  mixins: [AuthenticationMixin, DialogMixin],
   mounted() {
     this.$http.get('/octo-spy/api/info').then((response) => {
       this.version.api = response.data.version;
