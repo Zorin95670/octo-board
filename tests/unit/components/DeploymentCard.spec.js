@@ -62,26 +62,24 @@ describe('App.vue', () => {
   });
 
   it('Test method: stopProgress', async () => {
-    wrapper.vm.progressLoading = true;
-    wrapper.vm.confirmationDialog = true;
     wrapper.vm.inProgress = true;
 
     await wrapper.vm.stopProgress();
 
-    expect(wrapper.vm.progressLoading).toBeFalsy();
-    expect(wrapper.vm.confirmationDialog).toBeFalsy();
     expect(wrapper.vm.inProgress).toBeFalsy();
 
     mock.onDelete('/octo-spy/api/deployment/progress')
       .reply(404);
-    wrapper.vm.progressLoading = true;
-    wrapper.vm.confirmationDialog = true;
     wrapper.vm.inProgress = true;
 
     await wrapper.vm.stopProgress();
 
-    expect(wrapper.vm.progressLoading).toBeFalsy();
-    expect(wrapper.vm.confirmationDialog).toBeFalsy();
     expect(wrapper.vm.inProgress).toBeFalsy();
+  });
+
+  it('Test method: openConfirmationDialog', () => {
+    wrapper.vm.openDialog = jest.fn();
+    wrapper.vm.openConfirmationDialog();
+    expect(wrapper.vm.openDialog).toBeCalled();
   });
 });

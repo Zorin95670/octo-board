@@ -39,50 +39,12 @@
         x-small
         color="warning"
         title="Stop progress."
-        @click="confirmationDialog = true">
+        @click="openConfirmationDialog">
         <v-icon>mdi-stop</v-icon>
         Progress
       </v-btn>
       <v-spacer/>
     </v-card-actions>
-    <v-dialog
-      v-model="confirmationDialog"
-      max-width="420"
-      v-if="isAdministrator() && inProgress">
-      <v-card>
-        <v-card-title class="text-h5">
-          Confirmation
-        </v-card-title>
-
-        <v-card-text>
-          Stop progress for {{deployment.project}} on
-          {{deployment.client}} {{deployment.environment}} ?
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="red darken-1"
-            text
-            @click="dialog = false">
-            No
-          </v-btn>
-
-          <v-btn
-            color="green darken-1"
-            text
-            @click="stopProgress">
-            Yes
-          </v-btn>
-        </v-card-actions>
-
-        <v-progress-linear
-          indeterminate
-          absolute
-          bottom
-          :active="progressLoading"></v-progress-linear>
-      </v-card>
-    </v-dialog>
 
     <v-progress-linear
       indeterminate
@@ -95,10 +57,11 @@
 <script>
 import moment from 'moment';
 import AuthenticationMixin from '../mixins/AuthenticationMixin';
+import DialogMixin from '../mixins/DialogMixin';
 
 export default {
   name: 'DeploymentCard',
-  mixins: [AuthenticationMixin],
+  mixins: [AuthenticationMixin, DialogMixin],
   props: {
     deployment: Object,
   },
@@ -122,14 +85,24 @@ export default {
   },
   data() {
     return {
-      confirmationDialog: false,
-      progressLoading: false,
       inProgress: this.deployment.inProgress,
     };
   },
+  created() {
+    this.$root.$on('stopProgress', this.stopProgress);
+  },
+  beforeDestroy() {
+    this.$root.$off('stopProgress', this.stopProgress);
+  },
   methods: {
+    openConfirmationDialog() {
+      const { client, environment, project } = this.deployment;
+      this.openDialog('confirmationCard', {
+        text: `Stop progress for ${project} on ${client} ${environment} ?`,
+        event: 'stopProgress',
+      });
+    },
     stopProgress() {
-      this.progressLoading = true;
       return this.$http.delete('/octo-spy/api/deployment/progress', {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
@@ -144,8 +117,6 @@ export default {
           return status === 204 || status === 404;
         },
       }).then(() => {
-        this.progressLoading = false;
-        this.confirmationDialog = false;
         this.inProgress = false;
       });
     },
