@@ -27,6 +27,7 @@
       <v-container fluid>
         <v-breadcrumbs divider=">"></v-breadcrumbs>
         <router-view></router-view>
+        <action-menu v-if="isAdministrator()"/>
       </v-container>
     </v-main>
     <application-footer/>
@@ -40,6 +41,7 @@ import NavigationItems from '@/components/commons/NavigationItems.vue';
 import ApplicationFooter from '@/components/commons/ApplicationFooter.vue';
 import ApplicationSnackbar from '@/components/commons/ApplicationSnackbar.vue';
 import AuthenticationMixin from '@/mixins/AuthenticationMixin';
+import ActionMenu from './components/ActionMenu.vue';
 import ApplicationDialog from './components/commons/ApplicationDialog.vue';
 import DialogMixin from './mixins/DialogMixin';
 
