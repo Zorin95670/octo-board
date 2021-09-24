@@ -18,6 +18,7 @@ const router = new Router({
       meta: {
         requiresAuth: false,
         roles: [],
+        hasAction: false,
       },
     },
     {
@@ -27,15 +28,23 @@ const router = new Router({
       meta: {
         requiresAuth: false,
         roles: [],
+        hasAction: true,
+        actionColor: 'green',
+        actionIcon: 'mdi-plus',
+        actions: ['project'],
       },
     },
     {
-      path: '/projects/:projectName',
-      name: 'Master project: {{projectName}}',
+      path: '/projects/:masterProjectName',
+      name: 'Master project: {{masterProjectName}}',
       component: SubProjectsTable,
       meta: {
         requiresAuth: false,
         roles: [],
+        hasAction: true,
+        actionColor: 'green',
+        actionIcon: 'mdi-plus',
+        actions: ['subProject'],
       },
     },
     {
@@ -45,6 +54,7 @@ const router = new Router({
       meta: {
         requiresAuth: false,
         roles: [],
+        hasAction: false,
       },
     },
     {
@@ -54,6 +64,7 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         roles: ['ADMIN'],
+        hasAction: false,
       },
     },
     {
@@ -63,6 +74,7 @@ const router = new Router({
       meta: {
         requiresAuth: false,
         roles: [],
+        hasAction: false,
       },
     },
   ],

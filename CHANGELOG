@@ -1,5 +1,15 @@
 # octo-board changelog
 
+## 2021/09/24: version 2.7.0
+
+### New features
+
+* Permit to naviguate to project page when there are no sub-project
+* Add project management for administrator
+* Add a global button to make actions for administrator
+* Add popup to see new versions
+* Add token management
+
 ## 2021/09/15: version 2.6.2
 
 ### Bug fixes
@@ -77,13 +87,13 @@
 
 ## 2021/07/27: version 2.0.2
 
-### Bug fixes:
+### Bug fixes
 
 * Add missing dependency for build
 
 ## 2021/07/27: version 2.0.1
 
-### Bug fixes:
+### Bug fixes
 
 * Fix dockerfile
 
@@ -96,13 +106,13 @@
 
 ## 2021/01/11: version 1.5.2
 
-### Bug fixes:
+### Bug fixes
 
 * Fix margin table
 
 ## 2021/01/11: version 1.5.1
 
-### Bug fixes:
+### Bug fixes
 
 * Fix screen overflow
 
@@ -120,7 +130,7 @@
 
 ## 2021/01/07: version 1.3.1
 
-### Bug fixes:
+### Bug fixes
 
 * [HARMONY-3776] Fix banner display
 
@@ -132,14 +142,14 @@
 
 ## 2020/10/09: version 1.2.2
 
-### Bug fixes:
+### Bug fixes
 
 * Make client of version always visible
 * Fix order of clients
 
 ## 2020/10/08: version 1.2.1
 
-### Bug fixes:
+### Bug fixes
 
 * Improve of visibility of project's version
 

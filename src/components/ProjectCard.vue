@@ -20,7 +20,7 @@
         title="See sub-projects."
         v-if="isMasterProject"
         :to="`/projects/${this.name}`"
-        :disabled="subProjectsLoading || total === 0">
+        :disabled="subProjectsLoading">
         <v-icon>mdi-archive</v-icon>
       </v-btn>
       <v-btn

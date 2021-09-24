@@ -6,6 +6,7 @@ describe('Test Snakcbar', () => {
       message: '',
       color: '',
       icon: null,
+      timeout: null,
     });
   });
 
@@ -15,11 +16,13 @@ describe('Test Snakcbar', () => {
       message: '',
       color: '',
       icon: null,
+      timeout: null,
     });
     expect(state).toEqual({
       message: '',
       color: '',
       icon: null,
+      timeout: null,
     });
   });
 });

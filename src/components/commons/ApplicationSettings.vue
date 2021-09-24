@@ -16,6 +16,7 @@
 
 <script>
 import AdministratorSettings from '@/components/AdministratorSettings.vue';
+import TokenManagementPanel from '@/components/TokenManagementPanel.vue';
 
 export default {
   name: 'ApplicationSettings',
@@ -26,6 +27,10 @@ export default {
         name: 'Administrator account.',
         icon: 'mdi-shield-account',
         component: AdministratorSettings,
+      }, {
+        name: 'Token management.',
+        icon: 'mdi-shield-key',
+        component: TokenManagementPanel,
       }],
     };
   },

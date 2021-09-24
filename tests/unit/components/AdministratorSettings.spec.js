@@ -34,10 +34,6 @@ describe('AdministratorSettings', () => {
     });
   });
 
-  it('Test computed: token', () => {
-    expect(wrapper.vm.token).toBeNull();
-  });
-
   it('Test computed: login', () => {
     expect(wrapper.vm.login).toBeNull();
   });

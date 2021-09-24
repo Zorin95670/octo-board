@@ -26,3 +26,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# Generated files
+public/changelog.json
+public/changelog.html

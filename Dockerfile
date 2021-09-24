@@ -10,6 +10,7 @@ COPY . .
 FROM develop-stage as build-stage
 WORKDIR /app
 RUN npm run changelog --silent > public/changelog.html
+RUN npm run changelogToJson
 RUN npm run build
 
 # Production stage

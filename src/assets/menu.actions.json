@@ -1,0 +1,18 @@
+{
+  "project": {
+    "name": "New master project",
+    "icon": "mdi-folder-plus",
+    "component": "projectCreationCard",
+    "config": {
+      "isMaster": true
+    }
+  },
+  "subProject": {
+    "name": "New sub-project",
+    "icon": "mdi-folder-multiple-plus",
+    "component": "projectCreationCard",
+    "config": {
+      "isMaster": false
+    }
+  }
+}

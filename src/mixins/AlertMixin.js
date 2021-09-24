@@ -1,14 +1,9 @@
 const AlertMixin = {
-  computed: {
-    token() {
-      return this.$store.state.user.token;
-    },
-  },
   methods: {
-    loadAlerts() {
+    loadAlerts(token) {
       return this.$http.get('/octo-spy/api/alerts', {
         headers: {
-          Authorization: `Basic ${this.token}`,
+          Authorization: `Basic ${token}`,
         },
       })
         .then((response) => {

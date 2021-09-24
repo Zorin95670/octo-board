@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Dialog from '@/store/Dialog';
 import Snackbar from '@/store/Snackbar';
 import User from '@/store/User';
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    dialog: Dialog,
     snackbar: Snackbar,
     user: User,
   },

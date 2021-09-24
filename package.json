@@ -1,6 +1,6 @@
 {
   "name": "octo-board",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,7 +11,8 @@
     "test:unit": "vue-cli-service test:unit",
     "changelog": "markdown CHANGELOG",
     "rebuild": "npm rebuild node-sass",
-    "sonar": "sonar-scanner"
+    "sonar": "sonar-scanner",
+    "changelogToJson": "node changelogToJson.js"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",

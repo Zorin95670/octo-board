@@ -30,11 +30,6 @@ describe('Test AlertMixin', () => {
     });
   });
 
-  it('Test computed: token', () => {
-    expect(wrapper.vm.token)
-      .toBeNull();
-  });
-
   it('Test method: loadAlerts', async () => {
     mock.onGet('/octo-spy/api/alerts')
       .reply(204);

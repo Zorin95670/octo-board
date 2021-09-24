@@ -29,6 +29,10 @@ export default {
   },
   created() {
     this.loadProjects();
+    this.$root.$on('reloadMasterProject', this.loadProjects);
+  },
+  beforeDestroy() {
+    this.$root.$off('reloadMasterProject', this.loadProjects);
   },
   methods: {
     loadProjects() {

@@ -38,7 +38,7 @@ const AuthenticationMixin = {
         }
 
         if (data.roles.includes('ADMIN')) {
-          return this.loadAlerts();
+          return this.loadAlerts(this.getUserToken());
         }
         return Promise.resolve();
       }).catch((response) => {
@@ -75,6 +75,7 @@ const AuthenticationMixin = {
         storage.setItem('user-token', token);
       }
     },
+    getUserToken: () => window.localStorage.getItem('user-token'),
   },
 };
 
