@@ -15,7 +15,7 @@ describe('ProjectCard', () => {
   let vuetify;
   let store;
 
-  mock.onGet('/octo-spy/api/project/count')
+  mock.onGet('/octo-spy/api/projects/count')
     .reply(200, {
       test: 1,
       noData: 0,

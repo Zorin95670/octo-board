@@ -14,7 +14,7 @@ describe('ColorProjectPanel', () => {
   let wrapper;
   let vuetify;
 
-  mock.onPatch('/octo-spy/api/project/1')
+  mock.onPatch('/octo-spy/api/projects/1')
     .reply(204);
 
   beforeEach(() => {

@@ -15,7 +15,7 @@ describe('SubProjectsTable', () => {
   let vuetify;
 
   beforeEach(() => {
-    mock.onGet('/octo-spy/api/project')
+    mock.onGet('/octo-spy/api/projects')
       .reply(200, [{
         id: 1,
         name: 'test',
@@ -23,7 +23,7 @@ describe('SubProjectsTable', () => {
         id: 2,
         name: 'undeployProject',
       }]);
-    mock.onGet('/octo-spy/api/deployment/count')
+    mock.onGet('/octo-spy/api/deployments/count')
       .reply(200, {
         test: 1,
       });
@@ -85,7 +85,7 @@ describe('SubProjectsTable', () => {
   });
 
   it('Test method: deleteProject', async () => {
-    mock.onDelete('/octo-spy/api/project/1')
+    mock.onDelete('/octo-spy/api/projects/1')
       .reply(200, {});
     wrapper.vm.loadProjects = jest.fn();
     wrapper.vm.projects = [{

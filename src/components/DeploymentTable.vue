@@ -104,8 +104,8 @@ export default {
     },
     load(params) {
       return this.$http.all([
-        this.$http.get('/octo-spy/api/environment'),
-        this.$http.get('/octo-spy/api/deployment/last', { params }),
+        this.$http.get('/octo-spy/api/environments'),
+        this.$http.get('/octo-spy/api/deployments/last', { params }),
       ])
         .then((values) => {
           const environmentNames = values[0].data;

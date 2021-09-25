@@ -90,9 +90,9 @@ describe('TokenManagementPanel.vue', () => {
   it('Test method: deleteToken', async () => {
     wrapper.vm.loadTokens = jest.fn();
 
-    mock.onDelete('/octo-spy/api/users/token')
+    mock.onDelete('/octo-spy/api/users/token/test')
       .reply(200);
-    await wrapper.vm.deleteToken();
+    await wrapper.vm.deleteToken('test');
     expect(wrapper.vm.loadTokens).toBeCalled();
   });
 });

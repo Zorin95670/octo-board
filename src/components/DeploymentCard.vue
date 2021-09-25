@@ -103,7 +103,7 @@ export default {
       });
     },
     stopProgress() {
-      return this.$http.delete('/octo-spy/api/deployment/progress', {
+      return this.$http.delete('/octo-spy/api/deployments/progress', {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
         },
