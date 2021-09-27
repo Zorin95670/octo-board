@@ -29,9 +29,6 @@
         :to="`/historic?project=${this.name}`">
         <v-icon>mdi-history</v-icon>
       </v-btn>
-      <v-btn icon title="Associated jira issues.">
-        <v-icon>mdi-jira</v-icon>
-      </v-btn>
       <v-menu
         v-model="colorMenu"
         :close-on-content-click="false"
