@@ -99,7 +99,7 @@ export default {
       if (!this.isMasterProject) {
         return false;
       }
-      return this.$http.get('/octo-spy/api/project/count', {
+      return this.$http.get('/octo-spy/api/projects/count', {
         params: {
           field: 'masterProject',
           masterProject: this.name,

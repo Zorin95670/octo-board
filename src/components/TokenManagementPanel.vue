@@ -137,12 +137,9 @@ export default {
       });
     },
     deleteToken(name) {
-      return this.$http.delete('/octo-spy/api/users/token', {
+      return this.$http.delete(`/octo-spy/api/users/token/${name}`, {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
-        },
-        params: {
-          name,
         },
       }).then(() => this.loadTokens());
     },

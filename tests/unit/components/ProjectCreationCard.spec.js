@@ -17,10 +17,10 @@ describe('ProjectCreationCard', () => {
   beforeEach(() => {
     vuetify = new Vuetify();
 
-    mock.onGet('/octo-spy/api/project')
+    mock.onGet('/octo-spy/api/projects')
       .reply(200, []);
 
-    mock.onPost('/octo-spy/api/project')
+    mock.onPost('/octo-spy/api/projects')
       .reply(201);
 
     wrapper = shallowMount(component, {
@@ -73,7 +73,7 @@ describe('ProjectCreationCard', () => {
   it('Test method: loadMasterProjects', async () => {
     wrapper.vm.projects = [];
 
-    mock.onGet('/octo-spy/api/project')
+    mock.onGet('/octo-spy/api/projects')
       .reply(200, [{ name: 'test' }]);
     await wrapper.vm.loadMasterProjects();
     expect(wrapper.vm.projects).toEqual(['test']);
@@ -97,7 +97,7 @@ describe('ProjectCreationCard', () => {
     await wrapper.vm.validate();
     expect(event).toEqual('reloadSubProject');
 
-    mock.onPost('/octo-spy/api/project')
+    mock.onPost('/octo-spy/api/projects')
       .reply(400, { field: 'project', value: 'test' });
     await wrapper.vm.validate();
     expect(wrapper.vm.errorMessage).toEqual('Field project is test.');

@@ -79,13 +79,13 @@ export default {
   methods: {
     loadProjects() {
       return Promise.allSettled([
-        this.$http.get('/octo-spy/api/project', {
+        this.$http.get('/octo-spy/api/projects', {
           params: {
             masterProject: this.name,
             isMaster: false,
           },
         }),
-        this.$http.get('/octo-spy/api/deployment/count', {
+        this.$http.get('/octo-spy/api/deployments/count', {
           params: {
             masterProject: this.name,
             project: `not_${this.name}`,
@@ -120,7 +120,7 @@ export default {
     },
     deleteProject(name) {
       const { id } = this.projects.find((project) => project.name === name);
-      return this.$http.delete(`/octo-spy/api/project/${id}`, {
+      return this.$http.delete(`/octo-spy/api/projects/${id}`, {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
         },

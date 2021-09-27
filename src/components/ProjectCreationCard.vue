@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     loadMasterProjects() {
-      return this.$http.get('/octo-spy/api/project', { params: { isMaster: true } })
+      return this.$http.get('/octo-spy/api/projects', { params: { isMaster: true } })
         .then((response) => {
           this.projects = response.data.map((project) => project.name).sort();
         });
@@ -100,7 +100,7 @@ export default {
         data.masterName = this.masterProjectName;
       }
 
-      return this.$http.post('/octo-spy/api/project', data, {
+      return this.$http.post('/octo-spy/api/projects', data, {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
         },

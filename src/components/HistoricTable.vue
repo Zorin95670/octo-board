@@ -80,13 +80,13 @@ export default {
     this.initDataFromQuery(this.searchFields, {
       alive: (value) => `${value}`,
     });
-    this.$http.get('/octo-spy/api/project').then((response) => {
+    this.$http.get('/octo-spy/api/projects').then((response) => {
       this.projects = response.data.map((project) => project.name);
     });
-    this.$http.get('/octo-spy/api/environment').then((response) => {
+    this.$http.get('/octo-spy/api/environments').then((response) => {
       this.environments = response.data.map((environment) => environment.name);
     });
-    this.$http.get('/octo-spy/api/client').then((response) => {
+    this.$http.get('/octo-spy/api/clients').then((response) => {
       this.clients = response.data;
     });
   },
@@ -163,7 +163,7 @@ export default {
         this.cancel();
       }
 
-      return this.$http.get('/octo-spy/api/deployment', {
+      return this.$http.get('/octo-spy/api/deployments', {
         params,
         cancelToken: new axios.CancelToken((source) => {
           this.cancel = source;

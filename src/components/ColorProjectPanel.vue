@@ -61,7 +61,7 @@ export default {
         color: `${this.rgbColor.r},${this.rgbColor.g},${this.rgbColor.b}`,
       };
 
-      return this.$http.patch(`/octo-spy/api/project/${this.projectId}`, data)
+      return this.$http.patch(`/octo-spy/api/projects/${this.projectId}`, data)
         .then(() => {
           this.$emit('onColorUpdate', data.color);
         });

@@ -15,10 +15,10 @@ describe('DeploymentTable', () => {
   let vuetify;
 
   beforeEach(() => {
-    mock.onGet('/octo-spy/api/environment')
+    mock.onGet('/octo-spy/api/environments')
       .reply(200, ['env1', 'env2']);
 
-    mock.onGet('/octo-spy/api/deployment/last')
+    mock.onGet('/octo-spy/api/deployments/last')
       .reply(200, []);
 
     vuetify = new Vuetify();
