@@ -1,6 +1,7 @@
 <template>
   <v-menu
     top
+    v-model="isOpen"
     origin="center center"
     :offset-y="true"
     transition="scale-transition">
@@ -10,14 +11,16 @@
           v-show="hasAction"
           v-bind="attrs"
           v-on="on"
-          :color="actionColor"
+          :color="isOpen ? 'dark-grey' : 'green'"
           dark
           fixed
           bottom
           right
           fab
           style="bottom: 130px;">
-          <v-icon>{{ actionIcon }}</v-icon>
+          <v-icon>
+            {{ isOpen ? 'mdi-minus': 'mdi-plus' }}
+          </v-icon>
         </v-btn>
       </v-fab-transition>
     </template>
@@ -47,6 +50,7 @@ export default {
   mixins: [AuthenticationMixin, DialogMixin],
   data() {
     return {
+      isOpen: false,
       hasAction: false,
       actionColor: null,
       actionIcon: null,
