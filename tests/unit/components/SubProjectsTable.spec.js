@@ -38,6 +38,9 @@ describe('SubProjectsTable', () => {
             masterProjectName: 'test',
           },
         },
+        $router: {
+          push: jest.fn(),
+        },
         $store: {
           commit: jest.fn(),
           state: {
@@ -82,10 +85,16 @@ describe('SubProjectsTable', () => {
     wrapper.vm.openDialog = jest.fn();
     wrapper.vm.openConfirmationDialog();
     expect(wrapper.vm.openDialog).toBeCalled();
+
+    wrapper.vm.openDialog = jest.fn();
+    wrapper.vm.openConfirmationDialog('test', true);
+    expect(wrapper.vm.openDialog).toBeCalled();
   });
 
   it('Test method: deleteProject', async () => {
     mock.onDelete('/octo-spy/api/projects/1')
+      .reply(200, {});
+    mock.onDelete('/octo-spy/api/projects/2')
       .reply(200, {});
     wrapper.vm.loadProjects = jest.fn();
     wrapper.vm.projects = [{
@@ -95,6 +104,16 @@ describe('SubProjectsTable', () => {
       id: 1,
     }];
     await wrapper.vm.deleteProject('test');
-    expect(wrapper.vm.loadProjects).toBeCalled();
+    expect(wrapper.vm.loadProjects).toBeCalledTimes(1);
+    expect(wrapper.vm.$router.push).not.toBeCalled();
+
+    wrapper.vm.projects = [{
+      name: 'masterTest',
+      id: 2,
+      isMaster: true,
+    }];
+    await wrapper.vm.deleteProject('masterTest');
+    expect(wrapper.vm.loadProjects).toBeCalledTimes(1);
+    expect(wrapper.vm.$router.push).toBeCalled();
   });
 });
