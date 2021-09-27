@@ -14,6 +14,9 @@ const AuthenticationMixin = {
     isAdministrator() {
       return this.isUserGranted(['ADMIN']);
     },
+    isAdministratorFromStorage(storage) {
+      return storage.getItem('user-roles') === 'ADMIN';
+    },
     isUserGranted(roles) {
       return roles.some((role) => this.roles.includes(role));
     },
