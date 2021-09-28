@@ -1,6 +1,6 @@
 <template>
-  <v-expansion-panel-content>
-    <div style="display: flex; flex-direction: row; justify-content: space-around;">
+  <div style="display: flex; flex-direction: row; justify-content: space-around;">
+    <div>
       <v-card outlined max-width="372">
         <v-form
           ref="administratorPasswordForm"
@@ -30,6 +30,7 @@
               required></v-text-field>
           </v-card-text>
           <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn
               :disabled="!administratorPasswordValid"
               color="success"
@@ -40,6 +41,8 @@
           </v-card-actions>
         </v-form>
       </v-card>
+    </div>
+    <div>
       <v-card outlined max-width="372">
         <v-form
           ref="administratorEmailForm"
@@ -59,6 +62,7 @@
               required></v-text-field>
           </v-card-text>
           <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn
               :disabled="!administratorEmailValid"
               color="success"
@@ -70,7 +74,7 @@
         </v-form>
       </v-card>
     </div>
-  </v-expansion-panel-content>
+  </div>
 </template>
 
 <script>
