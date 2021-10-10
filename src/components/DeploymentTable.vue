@@ -51,8 +51,9 @@
         <v-col
           :cols="environment.maxClients - environment.clients[project.name].length"
           :key="`${project}-${environment.name}-none`"
-          v-if="environment.maxClients - environment.clients[project.name].length > 0
-          && environment.clients[project.name].length > 1">
+          v-if="(environment.maxClients - environment.clients[project.name].length > 0
+          && environment.clients[project.name].length > 1)
+          || environment.clients[project.name].length === 0">
           <v-card></v-card>
         </v-col>
         <v-divider
@@ -145,11 +146,14 @@ export default {
         });
         const array = Object.keys(clients)
           .map((key) => clients[key].length);
-        if (Math.max(...array) > 0) {
+        const max = Math.max(...array);
+        this.maxClients[env.name] = max;
+
+        if (max > 0) {
           environments.push({
             name: env.name,
             clients,
-            maxClients: Math.max(...array),
+            maxClients: max,
           });
         }
       });
