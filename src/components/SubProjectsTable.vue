@@ -1,45 +1,55 @@
 <template>
-  <v-expansion-panels multiple>
-    <v-expansion-panel>
-      <v-expansion-panel-header>
-        Undeploy projects({{ undeployProjects.length }})
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <div class="d-flex justify-center">
-          <template v-if="undeployProjects.length === 0">
-            All projects are deployed.
-          </template>
-          <template v-else-if="isAdministrator()">
-            <v-btn
-              color="red"
-              class="ma-2 text-none"
-              @click="openConfirmationDialog(project)"
-              v-bind:key="project"
-              v-for="project in undeployProjects">
-              <v-icon>mdi-delete</v-icon>
-              {{ project }}
-            </v-btn>
-          </template>
-          <template v-else>
-            <v-chip
-              class="ma-2"
-              v-bind:key="project"
-              v-for="project in undeployProjects">
-              {{ project }}
-            </v-chip>
-          </template>
-        </div>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-    <v-expansion-panel>
-      <v-expansion-panel-header>
-        Deploy projects({{ deployProjects.length }})
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <deployment-table :master-project="name"/>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
+  <div>
+    <div class="d-flex justify-center mb-5">
+      <v-btn
+        color="red"
+        @click="openConfirmationDialog(name, true)">
+        <v-icon>mdi-delete</v-icon>
+        Delete master project
+      </v-btn>
+    </div>
+    <v-expansion-panels multiple>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          Undeploy projects({{ undeployProjects.length }})
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <div class="d-flex justify-center">
+            <template v-if="undeployProjects.length === 0">
+              All projects are deployed.
+            </template>
+            <template v-else-if="isAdministrator()">
+              <v-btn
+                color="red"
+                class="ma-2 text-none"
+                @click="openConfirmationDialog(project)"
+                v-bind:key="project"
+                v-for="project in undeployProjects">
+                <v-icon>mdi-delete</v-icon>
+                {{ project }}
+              </v-btn>
+            </template>
+            <template v-else>
+              <v-chip
+                class="ma-2"
+                v-bind:key="project"
+                v-for="project in undeployProjects">
+                {{ project }}
+              </v-chip>
+            </template>
+          </div>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          Deploy projects({{ deployProjects.length }})
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <deployment-table :master-project="name"/>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </div>
 </template>
 
 <script>
@@ -82,7 +92,6 @@ export default {
         this.$http.get('/octo-spy/api/projects', {
           params: {
             masterProject: this.name,
-            isMaster: false,
           },
         }),
         this.$http.get('/octo-spy/api/deployments/count', {
@@ -100,7 +109,9 @@ export default {
 
           const count = response[1].value.data;
 
-          this.projects.map((project) => project.name)
+          this.projects
+            .filter((project) => !project.isMaster)
+            .map((project) => project.name)
             .forEach((project) => {
               if (Object.prototype.hasOwnProperty.call(count, project)) {
                 this.deployProjects.push(project);
@@ -111,20 +122,31 @@ export default {
           return response;
         });
     },
-    openConfirmationDialog(name) {
+    openConfirmationDialog(name, isMaster = false) {
+      const title = `Delete project ${name} ?`;
+      const masterText = isMaster ? 'and sub-projects' : '';
+      const disclaimer = `<br/><br/>This will delete all associated deployments ${masterText}!`;
       this.openDialog('confirmationCard', {
-        text: `Delete project ${name} ?`,
+        text: `${title}${disclaimer}`,
         event: 'deleteProject',
         eventData: name,
       });
     },
     deleteProject(name) {
-      const { id } = this.projects.find((project) => project.name === name);
-      return this.$http.delete(`/octo-spy/api/projects/${id}`, {
+      const project = this.projects.find((p) => p.name === name);
+
+      return this.$http.delete(`/octo-spy/api/projects/${project.id}`, {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
         },
-      }).then(this.loadProjects);
+      })
+        .then(() => {
+          if (project.isMaster) {
+            this.$router.push('/projects');
+            return Promise.resolve();
+          }
+          return this.loadProjects();
+        });
     },
   },
 };

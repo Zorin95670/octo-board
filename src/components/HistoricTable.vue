@@ -61,6 +61,22 @@
           <template v-slot:[`item.alive`]="{item}">
             {{ item.alive ? 'Yes' : 'No' }}
           </template>
+          <template v-slot:[`item.id`]="{item}">
+            <v-btn
+              color="red"
+              @click="dialogDisableDeployment(item.id)"
+              v-if="item.alive">
+              <v-icon>mdi-close</v-icon>
+              Disable
+            </v-btn>
+            <v-btn
+              color="red"
+              @click="dialogDeleteDeployment(item.id)"
+              v-else>
+              <v-icon>mdi-delete</v-icon>
+              Delete
+            </v-btn>
+          </template>
         </v-data-table>
       </v-col>
       <v-spacer/>
@@ -72,10 +88,12 @@
 import axios from 'axios';
 import tableConfig from '@/assets/table.historic.config.json';
 import UrlMixin from '@/mixins/UrlMixin';
+import AuthenticationMixin from '../mixins/AuthenticationMixin';
+import DialogMixin from '../mixins/DialogMixin';
 
 export default {
   name: 'HistoricTable',
-  mixins: [UrlMixin],
+  mixins: [AuthenticationMixin, DialogMixin, UrlMixin],
   created() {
     this.initDataFromQuery(this.searchFields, {
       alive: (value) => `${value}`,
@@ -89,6 +107,12 @@ export default {
     this.$http.get('/octo-spy/api/clients').then((response) => {
       this.clients = response.data;
     });
+    this.$root.$on('disableDeployment', this.disableDeployment);
+    this.$root.$on('deleteDeployment', this.deleteDeployment);
+  },
+  beforeDestroy() {
+    this.$root.$off('disableDeployment', this.disableDeployment);
+    this.$root.$off('deleteDeployment', this.deleteDeployment);
   },
   computed: {
     aliveText() {
@@ -96,18 +120,26 @@ export default {
       return (!value) ? 'Both' : value.text;
     },
   },
+  watch: {
+    roles() {
+      this.headers = this.initHeaders(this.isAdministrator());
+    },
+  },
   data() {
+    const headers = this.initHeaders(this.isAdministratorFromStorage(window.localStorage));
     return {
       params: {},
       lastParams: null,
       cancel: null,
-      headers: tableConfig.headers,
+      headers,
       pagination: {
         page: 1,
         total: 0,
       },
       searchFields: ['project', 'environment', 'client', 'version', 'alive'],
       items: [],
+      actions: null,
+      action: null,
       alive: null,
       aliveValues: [
         { text: 'Yes', value: 'true' },
@@ -127,6 +159,17 @@ export default {
     };
   },
   methods: {
+    initHeaders(isAdmin) {
+      if (isAdmin) {
+        return [...tableConfig.headers, {
+          text: 'Actions',
+          align: 'start',
+          sortable: false,
+          value: 'id',
+        }];
+      }
+      return tableConfig.headers;
+    },
     createQueryParameters() {
       const params = {
         page: this.pagination.page - 1,
@@ -176,6 +219,36 @@ export default {
         this.setUrlQueryParameters(params, ['page', 'sort', 'order']);
         this.loading = false;
       });
+    },
+    dialogDisableDeployment(id) {
+      this.openDialog('confirmationCard', {
+        text: 'Make this deployment inactive ?',
+        event: 'disableDeployment',
+        eventData: id,
+      });
+    },
+    disableDeployment(id) {
+      return this.$http.patch(`/octo-spy/api/deployments/${id}`, {
+        alive: false,
+      }, {
+        headers: {
+          Authorization: `Basic ${this.getUserToken()}`,
+        },
+      }).then(this.search);
+    },
+    dialogDeleteDeployment(id) {
+      this.openDialog('confirmationCard', {
+        text: 'Delete this deployment ?',
+        event: 'deleteDeployment',
+        eventData: id,
+      });
+    },
+    deleteDeployment(id) {
+      return this.$http.delete(`/octo-spy/api/deployments/${id}`, {
+        headers: {
+          Authorization: `Basic ${this.getUserToken()}`,
+        },
+      }).then(this.search);
     },
   },
 };

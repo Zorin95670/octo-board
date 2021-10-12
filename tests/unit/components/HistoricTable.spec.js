@@ -40,6 +40,18 @@ describe('App.vue', () => {
       localVue,
       router,
       vuetify,
+      mocks: {
+        $store: {
+          commit: jest.fn(),
+          state: {
+            user: {
+              login: null,
+              token: null,
+              roles: [],
+            },
+          },
+        },
+      },
     });
   });
 
@@ -124,5 +136,42 @@ describe('App.vue', () => {
     expect(wrapper.vm.setUrlQueryParameters).toBeCalledTimes(2);
     expect(wrapper.vm.cancel).toBeNull();
     expect(cancel).toBeCalledTimes(1);
+  });
+
+  it('Test method: initHeaders', () => {
+    expect(wrapper.vm.initHeaders(false).length).toEqual(6);
+    expect(wrapper.vm.initHeaders(true).length).toEqual(7);
+  });
+
+  it('Test method: dialogDisableDeployment', () => {
+    wrapper.vm.openDialog = jest.fn();
+    wrapper.vm.dialogDisableDeployment(1);
+    expect(wrapper.vm.openDialog).toBeCalled();
+  });
+
+  it('Test method: disableDeployment', async () => {
+    wrapper.vm.search = jest.fn();
+
+    mock.onPatch('/octo-spy/api/deployments/1')
+      .reply(204);
+
+    await wrapper.vm.disableDeployment(1);
+    expect(wrapper.vm.search).toBeCalled();
+  });
+
+  it('Test method: dialogDeleteDeployment', () => {
+    wrapper.vm.openDialog = jest.fn();
+    wrapper.vm.dialogDeleteDeployment(1);
+    expect(wrapper.vm.openDialog).toBeCalled();
+  });
+
+  it('Test method: deleteDeployment', async () => {
+    wrapper.vm.search = jest.fn();
+
+    mock.onDelete('/octo-spy/api/deployments/1')
+      .reply(204);
+
+    await wrapper.vm.deleteDeployment(1);
+    expect(wrapper.vm.search).toBeCalled();
   });
 });

@@ -1,62 +1,61 @@
 <template>
-  <v-expansion-panel-content>
-    <div style="display: flex; flex-direction: row; justify-content: space-around;">
-      <div>
-        <v-card outlined max-width="372">
-          <v-form
-            ref="tokenForm"
-            lazy-validation>
-            <v-card-title>Create token</v-card-title>
-            <v-card-text>
-              <v-text-field
-                dense
-                label="Token name"
-                type="text"
-                v-model="tokenName"
-                prepend-icon="mdi-alphabetical-variant"
-                :rules="rules"
-                :error-messages="errorMessage"
-                clearable
-                required></v-text-field>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn
-                color="success"
-                @click="saveToken">
-                <v-icon left>mdi-content-save</v-icon>
-                Create
-              </v-btn>
-            </v-card-actions>
-          </v-form>
-
-          <v-progress-linear
-            indeterminate
-            absolute
-            bottom
-            :active="progress"></v-progress-linear>
-        </v-card>
-      </div>
-      <div>
-        <v-card outlined max-width="372">
-          <v-card-title>Token list</v-card-title>
+  <div style="display: flex; flex-direction: row; justify-content: space-around;">
+    <div>
+      <v-card outlined max-width="372">
+        <v-form
+          ref="tokenForm"
+          lazy-validation>
+          <v-card-title>Create token</v-card-title>
           <v-card-text>
-            <div v-if="tokens.length === 0">
-              No token.
-            </div>
-            <div v-for="(name, index) in tokens" v-bind:key="`${index}${name}`">
-              <v-btn
-                icon
-                color="red"
-                @click="setDeletedToken(name)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-              {{ name }}
-            </div>
+            <v-text-field
+              dense
+              label="Token name"
+              type="text"
+              v-model="tokenName"
+              prepend-icon="mdi-alphabetical-variant"
+              :rules="rules"
+              :error-messages="errorMessage"
+              clearable
+              required></v-text-field>
           </v-card-text>
-        </v-card>
-      </div>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="success"
+              @click="saveToken">
+              <v-icon left>mdi-content-save</v-icon>
+              Create
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+
+        <v-progress-linear
+          indeterminate
+          absolute
+          bottom
+          :active="progress"></v-progress-linear>
+      </v-card>
     </div>
-  </v-expansion-panel-content>
+    <div>
+      <v-card outlined max-width="372">
+        <v-card-title>Token list</v-card-title>
+        <v-card-text>
+          <div v-if="tokens.length === 0">
+            No token.
+          </div>
+          <div v-for="(name, index) in tokens" v-bind:key="`${index}${name}`">
+            <v-btn
+              icon
+              color="red"
+              @click="setDeletedToken(name)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+            {{ name }}
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,19 @@
 # octo-board changelog
 
+## 2021/10/10: version 2.9.0
+
+### New features
+
+* Add environments management
+* Update button card display
+* Add button to manage deployments in historic table
+* Add button to delete master project
+
+### Bug fixes
+
+* Remove jira icon from project card
+* Fix display of no deployment for one client in deployments table
+
 ## 2021/10/10: version 2.8.1
 
 ### Bug fixes
