@@ -1,8 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import mixin from '@/mixins/AlertMixin';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import mixin from '@/mixins/AlertMixin';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();

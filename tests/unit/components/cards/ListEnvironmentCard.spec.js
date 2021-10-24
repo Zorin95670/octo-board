@@ -1,9 +1,9 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import component from '@/components/cards/environment/ListEnvironmentCard.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Vuetify from 'vuetify';
+import component from '@/components/cards/environment/ListEnvironmentCard.vue';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();

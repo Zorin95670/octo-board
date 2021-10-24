@@ -88,7 +88,6 @@ describe('ProjectCard', () => {
     wrapper.vm.colorMenu = true;
     wrapper.vm.onProjectUpdate();
 
-
     expect(wrapper.vm.colorMenu).toBeFalsy();
     expect(wrapper.emitted().onProjectUpdate).toBeTruthy();
   });

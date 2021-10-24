@@ -1,10 +1,10 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import VueRouter from 'vue-router';
-import App from '@/App.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Vuetify from 'vuetify';
+import App from '@/App.vue';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();

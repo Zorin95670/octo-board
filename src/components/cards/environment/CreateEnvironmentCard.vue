@@ -17,7 +17,7 @@
           required></v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn
           color="success"
           @click="save">

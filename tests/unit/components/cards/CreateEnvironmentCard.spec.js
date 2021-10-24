@@ -1,9 +1,9 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import component from '@/components/cards/environment/CreateEnvironmentCard.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Vuetify from 'vuetify';
+import component from '@/components/cards/environment/CreateEnvironmentCard.vue';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();
@@ -54,7 +54,6 @@ describe('CreateEnvironmentCard', () => {
     await wrapper.vm.save();
     expect(wrapper.vm.errorMessage).toEqual('');
 
-
     wrapper.vm.$refs.environmentForm.validate = () => true;
     mock.onPost('/octo-spy/api/environments')
       .reply(400, {
@@ -64,7 +63,6 @@ describe('CreateEnvironmentCard', () => {
     await wrapper.vm.save();
     expect(wrapper.vm.$root.$emit).not.toBeCalled();
     expect(wrapper.vm.errorMessage).toEqual('Field test is value.');
-
 
     mock.onPost('/octo-spy/api/environments')
       .reply(201);
