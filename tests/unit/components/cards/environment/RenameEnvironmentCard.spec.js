@@ -1,16 +1,16 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import component from '@/components/cards/environment/CreateEnvironmentCard.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Vuetify from 'vuetify';
+import component from '@/components/cards/environment/RenameEnvironmentCard.vue';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();
 
 localVue.use(VueAxios, axios);
 
-describe('CreateEnvironmentCard', () => {
+describe('RenameEnvironmentCard', () => {
   let wrapper;
   let vuetify;
 
@@ -19,6 +19,9 @@ describe('CreateEnvironmentCard', () => {
     wrapper = shallowMount(component, {
       localVue,
       vuetify,
+      propsData: {
+        environments: [{ id: 1, name: 'test' }],
+      },
       mocks: {
         $refs: {
           environmentForm: {
@@ -46,29 +49,40 @@ describe('CreateEnvironmentCard', () => {
       .toBeTruthy();
   });
 
+  it('Test watch: environments', async () => {
+    wrapper.setProps({ environments: [] });
+    await wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.id).toBeNull();
+    });
+    wrapper.setProps({ environments: [{ id: 1, name: 'test' }] });
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.id).toEqual(1);
+    });
+  });
+
+  it('Test method: openRenameDialog', () => {
+    wrapper.vm.id = 1;
+    wrapper.vm.openDialog = jest.fn();
+    wrapper.vm.openRenameDialog();
+    expect(wrapper.vm.openDialog).toBeCalled();
+  });
+
   it('Test method: save', async () => {
-    wrapper.vm.$root.$emit = jest.fn();
-    wrapper.vm.$refs.environmentForm.validate = () => false;
-    wrapper.vm.$refs.environmentForm.reset = jest.fn();
-    wrapper.vm.errorMessage = 'test';
-    await wrapper.vm.save();
-    expect(wrapper.vm.errorMessage).toEqual('');
-
-
-    wrapper.vm.$refs.environmentForm.validate = () => true;
-    mock.onPost('/octo-spy/api/environments')
+    mock.onPatch('/octo-spy/api/environments/1')
+      .reply(204);
+    mock.onPatch('/octo-spy/api/environments/2')
       .reply(400, {
         field: 'test',
         value: 'value',
       });
-    await wrapper.vm.save();
+
+    wrapper.vm.$refs.environmentForm.reset = jest.fn();
+    wrapper.vm.$root.$emit = jest.fn();
+    await wrapper.vm.save({ id: 2 });
     expect(wrapper.vm.$root.$emit).not.toBeCalled();
     expect(wrapper.vm.errorMessage).toEqual('Field test is value.');
 
-
-    mock.onPost('/octo-spy/api/environments')
-      .reply(201);
-    await wrapper.vm.save();
+    await wrapper.vm.save({ id: 1 });
     expect(wrapper.vm.$root.$emit).toBeCalled();
     expect(wrapper.vm.errorMessage).toEqual('');
   });

@@ -25,7 +25,6 @@
 
     <v-main>
       <v-container fluid>
-        <v-breadcrumbs divider=">"></v-breadcrumbs>
         <router-view></router-view>
         <action-menu v-if="isAdministrator()"/>
       </v-container>

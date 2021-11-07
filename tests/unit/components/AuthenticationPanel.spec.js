@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import component from '@/components/AuthenticationPanel.vue';
 import Vuetify from 'vuetify';
+import component from '@/components/AuthenticationPanel.vue';
 
 const localVue = createLocalVue();
 

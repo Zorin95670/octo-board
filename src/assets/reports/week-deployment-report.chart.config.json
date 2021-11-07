@@ -1,0 +1,52 @@
+{
+  "elements": {
+    "points": {
+      "borderColor": "white"
+    }
+  },
+  "legend": {
+    "labels": {
+      "fontColor": "white"
+    }
+  },
+  "tooltips": {
+    "callbacks": {
+    }
+  },
+  "scales": {
+    "xAxes": [
+      {
+        "type": "linear",
+        "max": 6,
+        "min": 0,
+        "gridLines": {
+          "color": "rgba(255, 255, 255, 0.2)"
+        },
+        "angleLines": {
+          "color": "white"
+        },
+        "ticks": {
+          "fontColor": "white",
+          "stepSize": 1
+        }
+      }
+    ],
+    "yAxes": [
+      {
+        "type": "linear",
+        "max": 23,
+        "min": 0,
+        "gridLines": {
+          "color": "rgba(255, 255, 255, 0.2)"
+        },
+        "angleLines": {
+          "color": "white"
+        },
+        "ticks": {
+          "fontColor": "white",
+          "stepSize": 1
+        }
+      }
+    ]
+  }
+}

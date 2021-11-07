@@ -21,6 +21,13 @@
     "roles": null
   },
   {
+    "icon": "mdi-chart-line",
+    "text": "Reports",
+    "route": "/reports",
+    "permitAll": true,
+    "roles": null
+  },
+  {
     "icon": "mdi-cog",
     "text": "Settings",
     "route": "/settings",

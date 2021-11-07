@@ -6,6 +6,7 @@ import HistoricTable from '@/components/HistoricTable.vue';
 import MasterProjectCardList from '@/components/MasterProjectCardList.vue';
 import SubProjectsTable from '@/components/SubProjectsTable.vue';
 import ApplicationSettings from '@/components/commons/ApplicationSettings.vue';
+import ReportPanel from './components/commons/ReportPanel.vue';
 
 Vue.use(Router);
 
@@ -60,6 +61,16 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         roles: ['ADMIN'],
+        hasAction: false,
+      },
+    },
+    {
+      path: '/reports',
+      name: 'reports',
+      component: ReportPanel,
+      meta: {
+        requiresAuth: false,
+        roles: [],
         hasAction: false,
       },
     },

@@ -1,9 +1,9 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import mixin from '@/mixins/AuthenticationMixin';
-import store from '@/store';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import store from '@/store';
+import mixin from '@/mixins/AuthenticationMixin';
 
 const mock = new MockAdapter(axios);
 const localVue = createLocalVue();

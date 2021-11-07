@@ -15,9 +15,8 @@ describe('Identicon', () => {
     });
   });
 
-
   it('Test default props', () => {
-    expect(wrapper.vm.size).toEqual(24)
+    expect(wrapper.vm.size).toEqual(24);
   });
 
   it('Test computed: identicon', () => {
