@@ -89,17 +89,17 @@ export default {
     };
   },
   created() {
-    this.$root.$on('stopProgress', this.stopProgress);
+    this.$root.$on(`stopProgress_${this.deployment.id}`, this.stopProgress);
   },
   beforeDestroy() {
-    this.$root.$off('stopProgress', this.stopProgress);
+    this.$root.$off(`stopProgress_${this.deployment.id}`, this.stopProgress);
   },
   methods: {
     openConfirmationDialog() {
       const { client, environment, project } = this.deployment;
       this.openDialog('confirmationCard', {
         text: `Stop progress for ${project} on ${client} ${environment} ?`,
-        event: 'stopProgress',
+        event: `stopProgress_${this.deployment.id}`,
       });
     },
     stopProgress() {
