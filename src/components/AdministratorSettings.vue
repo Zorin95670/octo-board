@@ -125,6 +125,7 @@ export default {
         .toString('base64'), {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
+          'Content-Type': 'text/plain',
         },
       })
         .then(() => {

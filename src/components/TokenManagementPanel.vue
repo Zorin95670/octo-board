@@ -88,7 +88,7 @@ export default {
         },
       })
         .then((response) => {
-          this.tokens = response.data.sort();
+          this.tokens = response.data.content.sort();
           return Promise.resolve();
         });
     },

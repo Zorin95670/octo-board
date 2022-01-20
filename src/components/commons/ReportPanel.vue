@@ -149,11 +149,10 @@ export default {
           && !this.isClientsChange);
     },
     resetVisibility() {
-      return this.loading || (
-        this.masterProjects.length !== this.previousMasterProjects.length
+      return this.loading
+        || this.masterProjects.length !== this.previousMasterProjects.length
         || this.environments.length !== this.previousEnvironments.length
-        || this.clients.length !== this.previousClients.length
-      );
+        || this.clients.length !== this.previousClients.length;
     },
   },
   data() {
@@ -176,14 +175,14 @@ export default {
   },
   created() {
     this.$http.all([
-      this.$http.get('/octo-spy/api/projects?isMaster=true&sort=id'),
+      this.$http.get('/octo-spy/api/projects?isMaster=true&order=id&sort=asc'),
       this.$http.get('/octo-spy/api/environments'),
       this.$http.get('/octo-spy/api/clients'),
     ])
       .then((values) => {
-        this.masterProjects = values[0].data;
-        this.environments = values[1].data;
-        this.clients = values[2].data;
+        this.masterProjects = values[0].data.content;
+        this.environments = values[1].data.content;
+        this.clients = values[2].data.content;
 
         this.selectedMasterProjects = this.masterProjects.map((p) => p.id)
           .sort();

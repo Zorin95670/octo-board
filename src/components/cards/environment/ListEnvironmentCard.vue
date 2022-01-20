@@ -147,6 +147,7 @@ export default {
         .filter((environment) => this.changes.includes(environment.id))
         .map((environment) => this.$http.patch(`/octo-spy/api/environments/${environment.id}`, {
           position: environment.position,
+          name: environment.name,
         }, {
           headers: {
             Authorization: `Basic ${this.getUserToken()}`,

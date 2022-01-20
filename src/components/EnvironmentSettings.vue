@@ -36,7 +36,7 @@ export default {
     loadEnvironments() {
       return this.$http.get('/octo-spy/api/environments')
         .then((response) => {
-          this.environments = response.data;
+          this.environments = response.data.content;
           return response;
         });
     },

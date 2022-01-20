@@ -16,10 +16,10 @@ describe('DeploymentTable', () => {
 
   beforeEach(() => {
     mock.onGet('/octo-spy/api/environments')
-      .reply(200, ['env1', 'env2']);
+      .reply(200, { content: ['env1', 'env2'] });
 
-    mock.onGet('/octo-spy/api/deployments/last')
-      .reply(200, []);
+    mock.onGet('/octo-spy/api/deployments/last?count=200')
+      .reply(200, { content: [] });
 
     vuetify = new Vuetify();
     wrapper = shallowMount(component, {

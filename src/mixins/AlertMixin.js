@@ -7,7 +7,7 @@ const AlertMixin = {
         },
       })
         .then((response) => {
-          this.$store.commit('setAlerts', response.data?.resources || []);
+          this.$store.commit('setAlerts', response.data?.content || []);
           return Promise.resolve();
         });
     },

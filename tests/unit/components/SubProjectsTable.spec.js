@@ -16,13 +16,15 @@ describe('SubProjectsTable', () => {
 
   beforeEach(() => {
     mock.onGet('/octo-spy/api/projects')
-      .reply(200, [{
-        id: 1,
-        name: 'test',
-      }, {
-        id: 2,
-        name: 'undeployProject',
-      }]);
+      .reply(200, {
+        content: [{
+          id: 1,
+          name: 'test',
+        }, {
+          id: 2,
+          name: 'undeployProject',
+        }],
+      });
     mock.onGet('/octo-spy/api/deployments/count')
       .reply(200, {
         test: 1,

@@ -32,8 +32,11 @@
 </template>
 
 <script>
+import AuthenticationMixin from '../mixins/AuthenticationMixin';
+
 export default {
   name: 'ColorProjectPanel',
+  mixins: [AuthenticationMixin],
   props: {
     projectName: String,
     projectId: Number,
@@ -61,10 +64,13 @@ export default {
         color: `${this.rgbColor.r},${this.rgbColor.g},${this.rgbColor.b}`,
       };
 
-      return this.$http.patch(`/octo-spy/api/projects/${this.projectId}`, data)
-        .then(() => {
-          this.$emit('onColorUpdate', data.color);
-        });
+      return this.$http.patch(`/octo-spy/api/projects/${this.projectId}`, data, {
+        headers: {
+          Authorization: `Basic ${this.getUserToken()}`,
+        },
+      }).then(() => {
+        this.$emit('onColorUpdate', data.color);
+      });
     },
   },
 };

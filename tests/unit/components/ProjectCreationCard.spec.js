@@ -18,7 +18,7 @@ describe('ProjectCreationCard', () => {
     vuetify = new Vuetify();
 
     mock.onGet('/octo-spy/api/projects')
-      .reply(200, []);
+      .reply(200, { content: [] });
 
     mock.onPost('/octo-spy/api/projects')
       .reply(201);
@@ -74,7 +74,7 @@ describe('ProjectCreationCard', () => {
     wrapper.vm.projects = [];
 
     mock.onGet('/octo-spy/api/projects')
-      .reply(200, [{ name: 'test' }]);
+      .reply(200, { content: [{ name: 'test' }] });
     await wrapper.vm.loadMasterProjects();
     expect(wrapper.vm.projects).toEqual(['test']);
   });

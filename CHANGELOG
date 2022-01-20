@@ -1,5 +1,17 @@
 # octo-board changelog
 
+## 2022/01/20: version 2.10.1
+
+### Bug fixes
+
+* Fix retrieve data error on some endpoint
+* Fix update environment position with new endpoint constraints
+* Fix empty field search on historic table
+* Fix delete progress event
+* Add missing authorization header on some requests
+* Fix update password administrator request
+* Use new endpoint's return to all application's requests
+
 ## 2021/11/06: version 2.10.0
 
 ### New features
