@@ -176,7 +176,7 @@ export default {
   },
   created() {
     this.$http.all([
-      this.$http.get('/octo-spy/api/projects?isMaster=true&sort=id'),
+      this.$http.get('/octo-spy/api/projects?isMaster=true&order=id&sort=asc'),
       this.$http.get('/octo-spy/api/environments'),
       this.$http.get('/octo-spy/api/clients'),
     ])

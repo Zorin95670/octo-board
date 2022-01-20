@@ -107,7 +107,7 @@ export default {
         headers: {
           Authorization: `Basic ${this.getUserToken()}`,
         },
-        data: {
+        params: {
           project: this.deployment.project,
           environment: this.deployment.environment,
           client: this.deployment.client,
