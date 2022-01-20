@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-center mb-5">
+    <div class="d-flex justify-center mb-5" v-if="isAdministrator()">
       <v-btn
         color="red"
         @click="openConfirmationDialog(name, true)">
