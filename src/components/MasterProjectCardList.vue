@@ -37,7 +37,7 @@ export default {
   methods: {
     loadProjects() {
       return this.$http.get('/octo-spy/api/projects?isMaster=true').then((response) => {
-        this.projects = response.data;
+        this.projects = response.data.content;
       });
     },
     onProjectUpdate() {

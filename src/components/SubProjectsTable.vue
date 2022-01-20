@@ -105,7 +105,7 @@ export default {
         .then((response) => {
           this.undeployProjects = [];
           this.deployProjects = [];
-          this.projects = response[0].value.data;
+          this.projects = response[0].value.data.content;
 
           const count = response[1].value.data;
 

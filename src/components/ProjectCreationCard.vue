@@ -83,7 +83,7 @@ export default {
     loadMasterProjects() {
       return this.$http.get('/octo-spy/api/projects', { params: { isMaster: true } })
         .then((response) => {
-          this.projects = response.data.map((project) => project.name).sort();
+          this.projects = response.data.content.map((project) => project.name).sort();
         });
     },
     validate() {

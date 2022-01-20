@@ -109,8 +109,8 @@ export default {
         this.$http.get('/octo-spy/api/deployments/last', { params }),
       ])
         .then((values) => {
-          const environmentNames = values[0].data;
-          const deployments = values[1].data;
+          const environmentNames = values[0].data.content;
+          const deployments = values[1].data.content;
 
           this.projects = this.initProjects(deployments);
           this.environments = this.initEnvironments(

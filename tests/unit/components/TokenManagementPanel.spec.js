@@ -58,7 +58,7 @@ describe('TokenManagementPanel.vue', () => {
     expect(wrapper.vm.tokens).toEqual([]);
 
     mock.onGet('/octo-spy/api/users/token')
-      .reply(200, ['token1']);
+      .reply(200, { content: ['token1'] });
     await wrapper.vm.loadTokens();
     expect(wrapper.vm.tokens).toEqual(['token1']);
   });

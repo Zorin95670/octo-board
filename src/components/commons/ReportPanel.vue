@@ -181,9 +181,9 @@ export default {
       this.$http.get('/octo-spy/api/clients'),
     ])
       .then((values) => {
-        this.masterProjects = values[0].data;
-        this.environments = values[1].data;
-        this.clients = values[2].data;
+        this.masterProjects = values[0].data.content;
+        this.environments = values[1].data.content;
+        this.clients = values[2].data.content;
 
         this.selectedMasterProjects = this.masterProjects.map((p) => p.id)
           .sort();

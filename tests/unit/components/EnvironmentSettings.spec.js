@@ -25,7 +25,7 @@ describe('EnvironmentSettings', () => {
   it('Test method: loadEnvironments', async () => {
     const environments = [{ name: 'test', id: 1, position: 0 }];
     mock.onGet('/octo-spy/api/environments')
-      .reply(200, environments);
+      .reply(200, { content: environments });
     await wrapper.vm.loadEnvironments();
     expect(wrapper.vm.environments).toEqual(environments);
   });

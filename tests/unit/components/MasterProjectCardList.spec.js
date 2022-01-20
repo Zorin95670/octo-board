@@ -15,7 +15,7 @@ describe('MasterProjectCardList', () => {
   let vuetify;
 
   mock.onGet('/octo-spy/api/projects?isMaster=true')
-    .reply(200, [{}]);
+    .reply(200, { content: [{}] });
 
   beforeEach(() => {
     vuetify = new Vuetify();

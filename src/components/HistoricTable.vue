@@ -99,13 +99,13 @@ export default {
       alive: (value) => `${value}`,
     });
     this.$http.get('/octo-spy/api/projects').then((response) => {
-      this.projects = response.data.map((project) => project.name);
+      this.projects = response.data.content.map((project) => project.name);
     });
     this.$http.get('/octo-spy/api/environments').then((response) => {
-      this.environments = response.data.map((environment) => environment.name);
+      this.environments = response.data.content.map((environment) => environment.name);
     });
     this.$http.get('/octo-spy/api/clients').then((response) => {
-      this.clients = response.data;
+      this.clients = response.data.content;
     });
     this.$root.$on('disableDeployment', this.disableDeployment);
     this.$root.$on('deleteDeployment', this.deleteDeployment);
@@ -213,9 +213,9 @@ export default {
         }),
       }).then((response) => {
         this.cancel = null;
-        this.items = response.data.resources;
-        this.pagination.page = response.data.page + 1;
-        this.pagination.total = Math.ceil(response.data.total / response.data.count);
+        this.items = response.data.content;
+        this.pagination.page = response.data.number + 1;
+        this.pagination.total = response.data.totalPages;
         this.setUrlQueryParameters(params, ['page', 'sort', 'order']);
         this.loading = false;
       });
