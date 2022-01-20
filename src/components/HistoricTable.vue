@@ -178,7 +178,7 @@ export default {
         params.order = this.order;
         params.sort = this.sort;
       }
-      this.searchFields.filter((field) => this[field] !== null)
+      this.searchFields.filter((field) => this[field] !== null && this[field] !== '')
         .forEach((field) => {
           params[field] = this[field];
         });
