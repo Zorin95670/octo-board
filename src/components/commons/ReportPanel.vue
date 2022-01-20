@@ -149,11 +149,10 @@ export default {
           && !this.isClientsChange);
     },
     resetVisibility() {
-      return this.loading || (
-        this.masterProjects.length !== this.previousMasterProjects.length
+      return this.loading
+        || this.masterProjects.length !== this.previousMasterProjects.length
         || this.environments.length !== this.previousEnvironments.length
-        || this.clients.length !== this.previousClients.length
-      );
+        || this.clients.length !== this.previousClients.length;
     },
   },
   data() {
