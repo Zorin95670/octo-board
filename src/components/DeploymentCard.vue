@@ -4,7 +4,7 @@
     align="center"
     justify="center">
     <v-card-title>{{ deployment.client }}</v-card-title>
-    <v-card-text>
+    <v-card-text :class="{'pb-0': inProgress}">
       <template v-if="isNew">
         <v-badge
           top right

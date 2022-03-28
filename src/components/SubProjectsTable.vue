@@ -45,7 +45,7 @@
           Deploy projects({{ deployProjects.length }})
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <deployment-table :master-project="name"/>
+          <deployment-table :parameters="{ masterProject: name, onMasterProject: false }"/>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>

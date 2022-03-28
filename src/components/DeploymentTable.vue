@@ -25,22 +25,23 @@
       justify="center" aligns="center"
       v-for="project in projects"
       :key="`${project.name}`">
-      <v-col class="ma-0 pa-0" :cols="2">
+      <v-col class="ma-0 pa-0 d-flex align-center" :cols="2">
         <v-container fluid>
           <project-card
             :name="project.name"
             :project-id="project.id"
             :display-sub-projects="false"
             :default-color="project.color"
-            :is-master-project="masterProject === null"
+            :is-master-project="project.isMaster"
             @onProjectUpdate="onProjectUpdate"/>
+          {{project.onMasterProject}}
         </v-container>
       </v-col>
       <template
         v-for="(environment, index) in environments">
         <v-col
           :cols="environment.clients[project.name].length === 1 ? environment.maxClients : 1"
-          class="ma-0 pa-0"
+          class="ma-0 pa-0 d-flex align-center"
           v-for="client in environment.clients[project.name]"
           :key="`${project.name}-${environment.name}-${client}`">
           <v-container fluid>
@@ -75,24 +76,22 @@ export default {
     DeploymentCard,
   },
   props: {
-    masterProject: {
-      type: String,
-      default: null,
+    parameters: Object,
+  },
+  watch: {
+    parameters() {
+      this.items = {};
+      this.environments = [];
+      this.projects = [];
+      this.maxClients = {};
+      this.load(this.parameters);
     },
   },
   created() {
-    if (this.masterProject !== null) {
-      this.params.masterProject = this.masterProject;
-      this.params.onMasterProject = false;
-      this.params.name = `not_${this.masterProject}`;
-    }
-    this.load(this.params);
+    this.load(this.parameters);
   },
   data() {
     return {
-      params: {
-        onMasterProject: true,
-      },
       items: {},
       environments: [],
       projects: [],
@@ -128,6 +127,7 @@ export default {
             id: deployment.projectId,
             name: deployment.project,
             color: deployment.color || '63,81,181',
+            isMaster: deployment.onMasterProject,
           });
         }
         return acc;

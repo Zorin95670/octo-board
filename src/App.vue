@@ -19,7 +19,10 @@
 
       <v-divider></v-divider>
 
-      <navigation-items/>
+      <navigation-item
+        :key="item.key"
+        v-for="item in navigationItems"
+        :item="item"/>
     </v-navigation-drawer>
     <application-bar @openNavigationPanel="drawer = !drawer"/>
 
@@ -35,23 +38,24 @@
 </template>
 
 <script>
+import navigationItems from '@/assets/navLinks.json';
 import ApplicationBar from '@/components/commons/ApplicationBar.vue';
-import NavigationItems from '@/components/commons/NavigationItems.vue';
 import ApplicationFooter from '@/components/commons/ApplicationFooter.vue';
 import ApplicationSnackbar from '@/components/commons/ApplicationSnackbar.vue';
 import AuthenticationMixin from '@/mixins/AuthenticationMixin';
 import ActionMenu from './components/ActionMenu.vue';
 import ApplicationDialog from './components/commons/ApplicationDialog.vue';
 import DialogMixin from './mixins/DialogMixin';
+import NavigationItem from './components/commons/NavigationItem.vue';
 
 export default {
   name: 'app',
   components: {
+    NavigationItem,
     ApplicationDialog,
     ActionMenu,
     ApplicationSnackbar,
     ApplicationFooter,
-    NavigationItems,
     ApplicationBar,
   },
   mixins: [AuthenticationMixin, DialogMixin],
@@ -66,9 +70,11 @@ export default {
       });
 
     this.authenticateFromStorage(window.localStorage);
+    this.$store.dispatch('loadDashboards', { visible: true });
   },
   data() {
     return {
+      navigationItems,
       drawer: false,
       version: {
         gui: this.$root.version,

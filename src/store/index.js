@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Dashboard from '@/store/Dashboard';
 import Dialog from '@/store/Dialog';
 import Snackbar from '@/store/Snackbar';
 import User from '@/store/User';
@@ -25,5 +26,6 @@ export default new Vuex.Store({
     dialog: Dialog,
     snackbar: Snackbar,
     user: User,
+    dashboard: Dashboard,
   },
 });
