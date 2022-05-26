@@ -1,22 +1,17 @@
 <template>
-  <v-list
-    dense
-    nav>
+  <v-list dense nav>
     <template v-for="item in navigationItems">
-      <v-list-item
-        :key="item.text"
-        :to="item.route"
-        v-if="item.permitAll || isUserGranted(item.roles)"
-        link>
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
+        <v-list-item
+          :key="item.key"
+          :to="item.route"
+          v-if="item.permitAll || isUserGranted(item.roles)"
+          link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
           <v-list-item-title>{{ item.text }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
+        </v-list-item>
+      </template>
   </v-list>
 </template>
 
@@ -30,7 +25,17 @@ export default {
   data() {
     return {
       navigationItems,
+      isOpen: navigationItems.filter((item) => item.hasItems)
+        .reduce((acc, item) => {
+          acc[item.key] = false;
+          return acc;
+        }, {}),
     };
+  },
+  methods: {
+    changeVisibility(key) {
+      this.isOpen[key] = !this.isOpen[key];
+    },
   },
 };
 </script>

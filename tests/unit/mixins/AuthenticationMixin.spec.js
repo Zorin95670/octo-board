@@ -2,7 +2,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import store from '@/store';
 import mixin from '@/mixins/AuthenticationMixin';
 
 const mock = new MockAdapter(axios);
@@ -20,9 +19,19 @@ describe('Test AuthenticationMixin', () => {
       mixins: [mixin],
     }, {
       localVue,
-      store,
       mocks: {
         $router,
+        $store: {
+          commit: jest.fn(),
+          dispatch: jest.fn(),
+          state: {
+            user: {
+              login: null,
+              token: null,
+              roles: [],
+            },
+          },
+        },
       },
     });
   });

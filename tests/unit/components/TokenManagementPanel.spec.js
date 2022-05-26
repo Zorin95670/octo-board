@@ -18,7 +18,7 @@ describe('TokenManagementPanel.vue', () => {
     vuetify = new Vuetify();
 
     mock.onGet('/octo-spy/api/users/token')
-      .reply(200, []);
+      .reply(200, { content: [] });
 
     mock.onPost('/octo-spy/api/users/token')
       .reply(200, { token: 'token' });

@@ -37,6 +37,7 @@ describe('App.vue', () => {
       mocks: {
         $store: {
           commit: jest.fn(),
+          dispatch: jest.fn(),
           state: {
             user: {
               login: null,
@@ -58,8 +59,8 @@ describe('App.vue', () => {
     let versions = null;
     let version = null;
 
-    const setItem = (name, data) => { version = data; };
-    wrapper.vm.openDialog = jest.fn((name, array) => { versions = array; });
+    const setItem = (_name, data) => { version = data; };
+    wrapper.vm.openDialog = jest.fn((_name, array) => { versions = array; });
 
     wrapper.vm.manageVersions({
       getItem: () => '2.7.0',

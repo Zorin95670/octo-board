@@ -9,6 +9,13 @@ describe('ApplicationSettings', () => {
   beforeEach(() => {
     wrapper = shallowMount(component, {
       localVue,
+      mocks: {
+        $route: {
+          params: {
+            anchor: false,
+          },
+        },
+      },
     });
   });
 

@@ -1,19 +1,25 @@
 [
   {
+    "key": "nav_dashboard_list",
     "icon": "mdi-view-dashboard",
     "text": "Dashboard",
     "route": "/",
     "permitAll": true,
-    "roles": null
+    "roles": null,
+    "hasItems": true,
+    "component": "DashboardList"
   },
   {
+    "key": "nav_master_project",
     "icon": "mdi-archive",
     "text": "Master project",
     "route": "/projects",
     "permitAll": true,
-    "roles": null
+    "roles": null,
+    "hasItems": false
   },
   {
+    "key": "nav_historic",
     "icon": "mdi-history",
     "text": "Historic",
     "route": "/historic",
@@ -21,17 +27,21 @@
     "roles": null
   },
   {
+    "key": "nav_reports",
     "icon": "mdi-chart-line",
     "text": "Reports",
     "route": "/reports",
     "permitAll": true,
-    "roles": null
+    "roles": null,
+    "hasItems": false
   },
   {
+    "key": "nav_settings",
     "icon": "mdi-cog",
     "text": "Settings",
     "route": "/settings",
     "permitAll": false,
-    "roles": ["ADMIN"]
+    "roles": ["ADMIN"],
+    "hasItems": false
   }
 ]

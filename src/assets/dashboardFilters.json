@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Deployment id",
+    "field": "id",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "Master project",
+    "field": "masterProject",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "Project",
+    "field": "project",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "Environment",
+    "field": "environment",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "Client",
+    "field": "client",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "Version",
+    "field": "version",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "Is master project",
+    "field": "onMasterProject",
+    "type": "boolean",
+    "value": 0
+  }
+]

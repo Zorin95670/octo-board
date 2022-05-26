@@ -18,13 +18,13 @@ describe('App.vue', () => {
   const router = new VueRouter();
 
   mock.onGet('/octo-spy/api/projects')
-    .reply(200, ['Project1', 'Project2']);
+    .reply(200, { content: ['Project1', 'Project2'] });
 
   mock.onGet('/octo-spy/api/environments')
-    .reply(200, ['Environment1', 'Environment2']);
+    .reply(200, { content: ['Environment1', 'Environment2'] });
 
   mock.onGet('/octo-spy/api/clients')
-    .reply(200, ['Client1', 'Client2']);
+    .reply(200, { content: ['Client1', 'Client2'] });
 
   mock.onGet('/octo-spy/api/deployments')
     .reply(200, {

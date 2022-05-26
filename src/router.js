@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Page404 from '@/views/Page404.vue';
-import VersionTable from '@/components/DeploymentTable.vue';
+import Dashboard from '@/components/Dashboard.vue';
 import HistoricTable from '@/components/HistoricTable.vue';
 import MasterProjectCardList from '@/components/MasterProjectCardList.vue';
 import SubProjectsTable from '@/components/SubProjectsTable.vue';
@@ -11,11 +11,21 @@ import ReportPanel from './components/commons/ReportPanel.vue';
 Vue.use(Router);
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
+      redirect: '/dashboards/',
+      meta: {
+        requiresAuth: false,
+        roles: [],
+        hasAction: false,
+      },
+    },
+    {
+      path: '/dashboards/:id?',
       name: 'Dashboard',
-      component: VersionTable,
+      component: Dashboard,
       meta: {
         requiresAuth: false,
         roles: [],
@@ -55,7 +65,7 @@ const router = new Router({
       },
     },
     {
-      path: '/settings',
+      path: '/settings/:anchor?',
       name: 'settings',
       component: ApplicationSettings,
       meta: {
@@ -87,7 +97,7 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const rolesText = window.localStorage.getItem('user-roles');
   const roles = (rolesText) ? rolesText.split(',') : [];
   if (!to.meta.requiresAuth || roles.some((role) => to.meta.roles.includes(role))) {

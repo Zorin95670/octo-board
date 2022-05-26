@@ -41,7 +41,8 @@ const AuthenticationMixin = {
         }
 
         if (data.roles.includes('ADMIN')) {
-          return this.loadAlerts(this.getUserToken());
+          this.$store.dispatch('loadDashboards', { visible: false, token });
+          return this.loadAlerts(token);
         }
         return Promise.resolve();
       }).catch((response) => {

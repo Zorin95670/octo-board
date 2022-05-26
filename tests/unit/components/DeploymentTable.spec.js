@@ -25,29 +25,10 @@ describe('DeploymentTable', () => {
     wrapper = shallowMount(component, {
       localVue,
       vuetify,
-    });
-  });
-
-  it('Test created: init params', () => {
-    expect(wrapper.vm.params)
-      .toEqual({
-        onMasterProject: true,
-      });
-
-    wrapper = shallowMount(component, {
-      localVue,
-      vuetify,
       propsData: {
-        masterProject: 'Test',
+        parameters: {},
       },
     });
-
-    expect(wrapper.vm.params)
-      .toEqual({
-        masterProject: 'Test',
-        onMasterProject: false,
-        name: 'not_Test',
-      });
   });
 
   it('Test method: initProjects', () => {
